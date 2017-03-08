@@ -1,0 +1,149 @@
+import com.android.build.gradle.internal.tasks.AndroidTestTask
+
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+apply from: 'dependencies.gradle'
+
+buildscript {
+    // Gradle will not find vars defined in an external file when referring to them
+    // in the buildscript block, unless you link it from the buildscript block, too.
+    apply from: 'dependencies.gradle'
+
+    repositories {
+        jcenter()
+
+        maven { url "https://jitpack.io" }
+    }
+
+    dependencies {
+        classpath gradlePlugins.aptPlugin
+        classpath gradlePlugins.androidToolsPlugin
+        classpath gradlePlugins.butterKnifePlugin
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+
+allprojects {
+    repositories {
+        jcenter()
+
+        maven { url "https://jitpack.io" }
+    }
+
+    // Workaround to prevent Gradle from stealing focus from other apps during tests run/etc.
+    // https://gist.github.com/artem-zinnatullin/4c250e04636e25797165
+    tasks.withType(JavaForkOptions) {
+        jvmArgs '-Djava.awt.headless=true'
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+
+ext.preDexLibs = !project.hasProperty('disablePreDex')
+
+subprojects {
+
+    project.plugins.whenPluginAdded { plugin ->
+        if ('com.android.build.gradle.AppPlugin'.equals(plugin.class.name) ||
+                'com.android.build.gradle.LibraryPlugin'.equals(plugin.class.name)) {
+            // enable or disable pre-dexing
+            project.android.dexOptions.preDexLibraries = rootProject.ext.preDexLibs
+        }
+    }
+
+    plugins.apply('pmd')
+    pmd {
+        toolVersion = '5.4.1'
+    }
+    task pmd(type: Pmd) {
+        ignoreFailures = true
+        ruleSetFiles = project.files(rootProject.file("config/pmd/pmd.xml"))
+        ruleSets = []
+
+        source = fileTree('src/main/java')
+        source 'src'
+        include '**/*.java'
+        exclude '**/gen/**'
+
+        reports {
+            xml.enabled = false
+            html.enabled = true
+            xml {
+                destination "$project.buildDir/reports/pmd/pmd.xml"
+            }
+            html {
+                destination "$project.buildDir/reports/pmd/pmd.html"
+            }
+        }
+    }
+
+    plugins.apply('findbugs')
+    task findbugs(type: FindBugs) {
+        ignoreFailures = true
+        effort = "max"
+        reportLevel = "high"
+        excludeFilter = rootProject.file('config/findbugs/findbugs.xml')
+        classes = files("${project.rootDir}/app/build/intermediates/classes")
+
+        source = fileTree('src/main/java')
+        source 'src'
+        include '**/*.java'
+        exclude '**/gen/**'
+
+        reports {
+            xml.enabled = false
+            html.enabled = true
+
+            xml {
+                destination "$project.buildDir/reports/findbugs/findbugs.xml"
+                withMessages = true
+            }
+            html {
+                destination "$project.buildDir/reports/findbugs/findbugs.html"
+            }
+        }
+        classpath = files()
+    }
+
+    plugins.apply('checkstyle')
+    checkstyle {
+        toolVersion = '6.7'
+    }
+    task checkstyle(type: Checkstyle) {
+        configFile rootProject.file('config/checkstyle/checkstyle.xml')
+        configProperties.checkstyleSuppressionsPath = file("${project.rootDir}/code_quality/checkstyle/suppressions.xml").absolutePath
+
+        ignoreFailures true
+        showViolations true
+
+        source 'src'
+        include '**/*.java'
+        exclude '**/gen/**'
+        classpath = files()
+    }
+
+    afterEvaluate {
+        tasks.findByName('pmd').dependsOn('assemble')
+        tasks.findByName('findbugs').dependsOn('assemble')
+
+        def checkTask = tasks.findByName('check')
+
+        checkTask.dependsOn('pmd')
+        //checkTask.dependsOn('findbugs')
+        checkTask.dependsOn('checkstyle')
+        checkTask.dependsOn('lint')
+
+        // Log instrumentation tests results.
+        tasks.withType(AndroidTestTask) { task ->
+            task.doFirst {
+                logging.level = LogLevel.INFO
+            }
+            task.doLast {
+                logging.level = LogLevel.LIFECYCLE
+            }
+        }
+    }
+}
+

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="coach_mark_transparent_color">#00000000</color>
+    <color name="coach_mark_text_color">#3E4152</color>
+    <color name="coach_mark_button_text_color">#526cd0</color>
+    <color name="coach_mark_notch_stroke_color">#D4D5D9</color>
+    <color name="coach_mark_white">#FFFFFF</color>
+    <color name="coach_mark_mask_color">#70000000</color>
+    <color name="coach_mark_black_translucent">#50000000</color>
+    <color name="coach_mark_separator_color">#bfc0c6</color>
+    <color name="primary_color_dark">#1B202A</color>
+    <color name="color_accent">#0BC6A0</color>
+    <color name="primary_color">#FFFFFF</color>
+
+</resources>

@@ -1,0 +1,31 @@
+#
+# Build configuration for Circle CI
+#
+general:
+    artifacts:
+        - /home/ubuntu/com.myntra.coachmarks/app/build/outputs/apk/
+
+machine:
+    environment:
+        ANDROID_HOME: /usr/local/android-sdk-linux
+        GRADLE_OPTS: '-Dorg.gradle.jvmargs="-Xmx2048m -XX:+HeapDumpOnOutOfMemoryError"'
+    java:
+        version: openjdk8
+
+dependencies:
+    pre:
+      - echo y | android update sdk --no-ui --all --filter "tools,android-25,build-tools-25.0.2,platform-tools,extra-android-m2repository,extra-google-m2repository,extra-google-google_play_services"
+
+#-PdisablePreDex is a must else gradle just dies due to memory limit
+test:
+    override:
+        - (./gradlew assemble -PdisablePreDex):
+            timeout: 1000
+
+#Deploy when tests pass
+deployment:
+    master:
+        branch: master
+        commands:
+            - (./gradlew clean build -PdisablePreDex -PwithDexcount --info):
+                timeout: 720

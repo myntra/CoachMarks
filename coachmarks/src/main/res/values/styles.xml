@@ -1,0 +1,20 @@
+<resources>
+
+    <style name="coach_mark_dialog_animation">
+        <item name="android:windowEnterAnimation">@android:anim/fade_in</item>
+        <item name="android:windowExitAnimation">@android:anim/fade_out</item>
+    </style>
+
+    <style name="Theme.Material" parent="Theme.AppCompat.Light">
+        <item name="windowNoTitle">true</item>
+        <item name="colorPrimary">@color/primary_color</item>
+        <item name="colorPrimaryDark">@color/primary_color_dark</item>
+        <item name="windowActionModeOverlay">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="colorAccent">@color/color_accent</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme" parent="Theme.Material" />
+
+</resources>

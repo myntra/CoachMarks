@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:innerRadius="0dp"
+    android:shape="ring"
+    android:thicknessRatio="2"
+    android:useLevel="false">
+    <solid android:color="@color/white_30" />
+    <stroke
+        android:width="@dimen/coach_mark_similar_item_coach_mark_stroke"
+        android:color="@color/watermelon_70" />
+</shape>
