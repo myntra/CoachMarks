@@ -1,0 +1,60 @@
+#
+# Build configuration for TRAVIS CI
+#
+
+# Disabling sudo moves build to the Container Based Infrastructure on Travis CI
+sudo: false
+
+language: android
+jdk: oraclejdk8
+
+env:
+  global:
+    - MALLOC_ARENA_MAX=2
+    - ADB_INSTALL_TIMEOUT=10
+    - ANDROID_API_LEVEL=25
+    - ANDROID_BUILD_TOOLS_VERSION=25.0.2
+    - ANDROID_ABI=armeabi-v7a
+    - ANDROID_TAG=google_apis
+
+android:
+  components:
+    - platform-tools
+    - tools
+    - tools
+    - android-$ANDROID_API_LEVEL
+    - build-tools-$ANDROID_BUILD_TOOLS_VERSION
+    # For Google Maps API v1
+    - addon-google_apis-google-$ANDROID_API_LEVEL
+    # Google Play Services
+    - extra-google-google_play_services
+    # Support library
+    - extra-android-support
+    # Latest artifacts in local repository
+    - extra-google-m2repository
+    - extra-android-m2repository
+    # Specify at least one system image
+    - sys-img-armeabi-v7a-android-$ANDROID_API_LEVEL
+    - sys-img-armeabi-v7a-addon-google_apis-google-$ANDROID_API_LEVEL
+
+  licenses:
+      - 'android-sdk-preview-license-.+'
+      - 'android-sdk-license-.+'
+      - 'google-gdk-license-.+'
+      - '.+'
+
+before_install:
+  - pip install --user codecov
+
+script:
+  - sh ci.sh
+
+after_success:
+  - codecov
+
+notifications:
+  email: true
+  slack: myntra:3GgFvhHOLMEe3WIVzuoFUW8Y
+
+cache: false
+sudo: required
