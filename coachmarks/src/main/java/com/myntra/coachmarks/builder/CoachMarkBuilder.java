@@ -26,21 +26,19 @@ public abstract class CoachMarkBuilder implements Parcelable {
         double DEFAULT_NOTCH_POSITION = 0.0;
         return new AutoValue_CoachMarkBuilder.Builder()
                 .setAnchorTop(coachMarkViewAnchorTop)
-                .setAnchorBottom(coachMarkViewAnchorBottom)
                 .setCoachMarkMessage(coachMarkMessage)
-                .setCoachMarkTextGravity(CoachMarkTextGravity.LEFT)
-                .setActionBarHeight(R.dimen.coach_mark_zero_dp)
+                .setNotchPosition(DEFAULT_NOTCH_POSITION)
+                .setAnchorBottom(coachMarkViewAnchorBottom)
                 .setFooterHeight(R.dimen.coach_mark_zero_dp)
+                .setActionBarHeight(R.dimen.coach_mark_zero_dp)
+                .setCoachMarkTextGravity(CoachMarkTextGravity.LEFT)
                 .setInfoForViewToMaskList(new ArrayList<InfoForViewToMask>(0))
                 .setAnimationTypeOnImage(AnimationType.THROB_ANIMATION)
-                .setUserDesiredPopUpPositionWithRespectToView(PopUpPosition.RIGHT)
-                .setBackGroundTintForImage(R.color.coach_mark_transparent_color)
                 .setImageDrawableRes(R.drawable.coachmark_drawable_no_image)
-                .setNotchPosition(DEFAULT_NOTCH_POSITION)
+                .setBackGroundTintForImage(R.color.coach_mark_transparent_color)
                 .setCoachMarkLayoutMargin(CoachMarkLayoutMargin.create().build())
-                .setImageLayoutInformation(ImageLayoutInformation.create(R.dimen.coach_mark_zero_dp, R.dimen.coach_mark_zero_dp).build())
-                .setFontStyleForDismissButton(null)
-                .setFontStyleForCoachMarkText(null);
+                .setUserDesiredPopUpPositionWithRespectToView(PopUpPosition.RIGHT)
+                .setImageLayoutInformation(ImageLayoutInformation.create(R.dimen.coach_mark_zero_dp, R.dimen.coach_mark_zero_dp).build());
     }
 
     @SuppressWarnings("unused")
