@@ -15,7 +15,7 @@ public interface IPopUpCoachMarkPresentation {
 
     void dismissWithError(String message);
 
-    void onDismiss();
+    void closeCoachMarkDialog();
 
     void startThrobAnimationOnImage();
 

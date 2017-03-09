@@ -2,7 +2,7 @@
 
 [![Platform](https://img.shields.io/badge/platform-android-green.svg)](http://developer.android.com/index.html)
 ![SDK](https://img.shields.io/badge/SDK-16%2B-green.svg)
-![Release](https://img.shields.io/badge/release-0.0.2-green.svg)
+![Release](https://img.shields.io/badge/release-0.0.3-green.svg)
 [![Jitpack](https://jitpack.io/v/myntra/CoachMarks.svg)](https://jitpack.io/#myntra/CoachMarks)
 [![Build Status](https://travis-ci.org/myntra/CoachMarks.svg?branch=master)](https://travis-ci.org/myntra/CoachMarks)
 [![CircleCI](https://circleci.com/gh/myntra/CoachMarks.svg?style=svg)](https://circleci.com/gh/myntra/CoachMarks)
@@ -23,7 +23,7 @@ Add jitpack to your root `build.gradle`
 Add the dependency
 ```
 	dependencies {
-	        compile 'com.github.myntra:CoachMarks:0.0.2'
+	        compile 'com.github.myntra:CoachMarks:0.0.3'
 	}
 ```
 
@@ -31,7 +31,7 @@ Add the dependency
 License
 -------
 
-    Copyright Manjunath Chandrashekar & Mudit Pant 2017
+    Copyright 2017 Manjunath Chandrashekar & Mudit Pant
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.

@@ -9,7 +9,7 @@ android {
         minSdkVersion versions.minSdk
         targetSdkVersion versions.targetSdk
         versionCode 1
-        versionName "0.0.2"
+        versionName "0.0.3"
     }
 
     buildTypes {
@@ -31,4 +31,5 @@ dependencies {
     compile libraries.supportAppCompat
 
     testCompile 'junit:junit:4.12'
+    compile 'com.android.support:support-annotations:25.2.0'
 }

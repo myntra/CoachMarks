@@ -5,6 +5,7 @@ import android.os.Parcelable;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DimenRes;
 import android.support.annotation.DrawableRes;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 
@@ -41,6 +42,7 @@ public abstract class CoachMarkBuilder implements Parcelable {
                 .setImageLayoutInformation(ImageLayoutInformation.create(R.dimen.coach_mark_zero_dp, R.dimen.coach_mark_zero_dp).build());
     }
 
+    @NonNull
     @SuppressWarnings("unused")
     public Builder newBuilder() {
         return new AutoValue_CoachMarkBuilder.Builder(this);

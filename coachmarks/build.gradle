@@ -9,7 +9,7 @@ android {
         minSdkVersion versions.minSdk
         targetSdkVersion versions.targetSdk
         versionCode 1
-        versionName "0.0.2"
+        versionName "0.0.3"
         vectorDrawables.useSupportLibrary = true
     }
 
@@ -38,8 +38,9 @@ dependencies {
 
     //SUPPORT LIB
     compile libraries.supportAppCompat
+    compile libraries.supportAnnotations
 
-    //Utils
+    //ZETA COMPONENTS
     compile libraries.zetaUtils
 
     //PROGRAMMING

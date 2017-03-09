@@ -47,7 +47,7 @@ public class PopUpCoachMarkPresenter {
     private static final int MULTIPLICATION_FACTOR_FOR_NOTCH_UI_ADJUSTMENT = 3;
 
     private CoachMarkBuilder mCoachMarkBuilder;
-    private IPopUpCoachMarkPresentation mPopUpCoachMarkPresentation;
+    private IPopUpCoachMarkPresentation mPresentation;
 
     private ITypeFaceProvider mTypeFaceProvider;
     private IScreenInfoProvider mScreenInfoProvider;
@@ -69,15 +69,18 @@ public class PopUpCoachMarkPresenter {
     }
 
     public void onCreateView(IPopUpCoachMarkPresentation popUpCoachMarkPresentation) {
-        mPopUpCoachMarkPresentation = popUpCoachMarkPresentation;
+        mPresentation = popUpCoachMarkPresentation;
     }
 
     public void onViewCreated() {
         displayCoachMark();
     }
 
+    public void onDestroyView() {
+        mPresentation = null;
+    }
+
     public void onDestroy() {
-        mPopUpCoachMarkPresentation = null;
         mScreenInfoProvider = null;
         mDimensionResourceProvider = null;
         mStringResourceProvider = null;
@@ -85,14 +88,12 @@ public class PopUpCoachMarkPresenter {
     }
 
     public void onOkButtonClicked() {
-        if (mPopUpCoachMarkPresentation != null) {
-            mPopUpCoachMarkPresentation.onDismiss();
-        }
+        mPresentation.closeCoachMarkDialog();
     }
 
     public void onShimClicked() {
-        if (mPopUpCoachMarkPresentation != null) {
-            mPopUpCoachMarkPresentation.onDismiss();
+        if (mPresentation != null) {
+            mPresentation.closeCoachMarkDialog();
         }
     }
 
@@ -105,7 +106,7 @@ public class PopUpCoachMarkPresenter {
                 mCoachMarkBuilder.getUserDesiredPopUpPositionWithRespectToView(), coachMarkDimenInPixel);
 
         if (popUpPosition == PopUpPosition.NONE) {
-            mPopUpCoachMarkPresentation.dismissWithError(
+            mPresentation.dismissWithError(
                     mStringResourceProvider.getStringFromResource(R.string.coachmark_no_position_found));
             return;
         }
@@ -123,35 +124,37 @@ public class PopUpCoachMarkPresenter {
     }
 
     private void setMessageForCoachMarkText(@StringRes int messageForCoachMarkTextRes) {
-        mPopUpCoachMarkPresentation.setCoachMarkMessage(mStringResourceProvider.getStringFromResource(messageForCoachMarkTextRes));
+        mPresentation.setCoachMarkMessage(mStringResourceProvider.getStringFromResource(messageForCoachMarkTextRes));
     }
 
     private void setTypeFaceForDismissButton(@Nullable String fontFileForDismissButton) {
         if (StringUtils.isNotNullOrEmpty(fontFileForDismissButton)) {
             Typeface typeface = mTypeFaceProvider.getTypeFaceFromAssets(fontFileForDismissButton);
-            if (typeface != null)
-                mPopUpCoachMarkPresentation.setTypeFaceForDismissButton(typeface);
+            if (typeface != null) {
+                mPresentation.setTypeFaceForDismissButton(typeface);
+            }
         }
     }
 
     private void setTypeFaceForCoachMarkText(@Nullable String fontFileForPopUpText) {
         if (StringUtils.isNotNullOrEmpty(fontFileForPopUpText)) {
             Typeface typeface = mTypeFaceProvider.getTypeFaceFromAssets(fontFileForPopUpText);
-            if (typeface != null)
-                mPopUpCoachMarkPresentation.setTypeFaceForPopUpText(typeface);
+            if (typeface != null) {
+                mPresentation.setTypeFaceForPopUpText(typeface);
+            }
         }
     }
 
     private void setGravityForCoachMarkText(int textAlignmentForPopUpText) {
         switch (textAlignmentForPopUpText) {
             case CoachMarkTextGravity.CENTER:
-                mPopUpCoachMarkPresentation.setUpGravityForCoachMarkText(CoachMarkTextGravity.CENTER);
+                mPresentation.setUpGravityForCoachMarkText(CoachMarkTextGravity.CENTER);
                 break;
             case CoachMarkTextGravity.LEFT:
-                mPopUpCoachMarkPresentation.setUpGravityForCoachMarkText(CoachMarkTextGravity.LEFT);
+                mPresentation.setUpGravityForCoachMarkText(CoachMarkTextGravity.LEFT);
                 break;
             case CoachMarkTextGravity.RIGHT:
-                mPopUpCoachMarkPresentation.setUpGravityForCoachMarkText(CoachMarkTextGravity.RIGHT);
+                mPresentation.setUpGravityForCoachMarkText(CoachMarkTextGravity.RIGHT);
                 break;
         }
     }
@@ -168,38 +171,38 @@ public class PopUpCoachMarkPresenter {
             case PopUpPosition.LEFT:
                 actualTopMargin = getActualTopMargin(centerY, coachMarkDimenInPixel);
                 coachMarkMarginRect = new Rect(coachMarkDimenInPixel.getMarginRectInPixels().left, actualTopMargin - coachMarkDimenInPixel.getMarginRectInPixels().bottom, coachMarkDimenInPixel.getMarginRectInPixels().right + coachMarkDimenInPixel.getImageWidthInPixels(), NO_MARGIN);
-                mPopUpCoachMarkPresentation.setPopUpViewTopLeft(coachMarkMarginRect, CoachMarkLayoutOrientation.HORIZONTAL);
+                mPresentation.setPopUpViewTopLeft(coachMarkMarginRect, CoachMarkLayoutOrientation.HORIZONTAL);
                 notchPosition = getMarginTopForNotch(mCoachMarkBuilder.getNotchPosition(), coachMarkDimenInPixel.getPopUpHeightInPixels(), coachMarkDimenInPixel.getNotchDimenInPixels());
                 notchMarginRect = new Rect(-coachMarkDimenInPixel.getMarginOffsetForNotchInPixels(), notchPosition, NO_MARGIN, NO_MARGIN);
-                mPopUpCoachMarkPresentation.setNotchPositionIfPopUpTopLeft(notchMarginRect, ROTATION_90);
+                mPresentation.setNotchPositionIfPopUpTopLeft(notchMarginRect, ROTATION_90);
                 break;
             case PopUpPosition.TOP:
                 actualLeftMargin = getActualLeftMargin(anchorTopX, coachMarkDimenInPixel);
                 coachMarkMarginRect = new Rect(actualLeftMargin - coachMarkDimenInPixel.getMarginRectInPixels().right, coachMarkDimenInPixel.getMarginRectInPixels().top, NO_MARGIN, coachMarkDimenInPixel.getMarginRectInPixels().bottom + coachMarkDimenInPixel.getImageHeightInPixels());
-                mPopUpCoachMarkPresentation.setPopUpViewTopLeft(coachMarkMarginRect, CoachMarkLayoutOrientation.VERTICAL);
+                mPresentation.setPopUpViewTopLeft(coachMarkMarginRect, CoachMarkLayoutOrientation.VERTICAL);
                 notchPosition = getMarginLeftForNotch(mCoachMarkBuilder.getNotchPosition(), coachMarkDimenInPixel.getPopUpWidthInPixels(), coachMarkDimenInPixel.getNotchDimenInPixels());
                 notchMarginRect = new Rect(notchPosition + coachMarkDimenInPixel.getMarginOffsetForNotchInPixels(), -coachMarkDimenInPixel.getMarginOffsetForNotchInPixels(), NO_MARGIN, NO_MARGIN);
-                mPopUpCoachMarkPresentation.setNotchPositionIfPopUpTopLeft(notchMarginRect, ROTATION_180);
+                mPresentation.setNotchPositionIfPopUpTopLeft(notchMarginRect, ROTATION_180);
                 break;
             case PopUpPosition.RIGHT:
                 actualTopMargin = getActualTopMargin(centerY, coachMarkDimenInPixel);
                 coachMarkMarginRect = new Rect(coachMarkDimenInPixel.getMarginRectInPixels().left + coachMarkDimenInPixel.getImageWidthInPixels(), actualTopMargin - coachMarkDimenInPixel.getMarginRectInPixels().bottom, coachMarkDimenInPixel.getMarginRectInPixels().right, NO_MARGIN);
-                mPopUpCoachMarkPresentation.setPopUpViewBottomRight(coachMarkMarginRect, CoachMarkLayoutOrientation.HORIZONTAL);
+                mPresentation.setPopUpViewBottomRight(coachMarkMarginRect, CoachMarkLayoutOrientation.HORIZONTAL);
                 notchPosition = getMarginTopForNotch(mCoachMarkBuilder.getNotchPosition(), coachMarkDimenInPixel.getPopUpHeightInPixels(), coachMarkDimenInPixel.getNotchDimenInPixels());
                 notchMarginRect = new Rect(NO_MARGIN, notchPosition - (2 * coachMarkDimenInPixel.getMarginOffsetForNotchInPixels()), NO_MARGIN, NO_MARGIN);
-                mPopUpCoachMarkPresentation.setNotchPositionIfPopUpBottomRight(notchMarginRect, ROTATION_270);
+                mPresentation.setNotchPositionIfPopUpBottomRight(notchMarginRect, ROTATION_270);
                 notchUiAdjustmentMarginRect = new Rect(NO_MARGIN, notchPosition - coachMarkDimenInPixel.getMarginOffsetForNotchInPixels(), NO_MARGIN, NO_MARGIN);
-                mPopUpCoachMarkPresentation.uiAdjustmentForNotchIfPopUpRight(notchUiAdjustmentMarginRect);
+                mPresentation.uiAdjustmentForNotchIfPopUpRight(notchUiAdjustmentMarginRect);
                 break;
             case PopUpPosition.BOTTOM:
                 actualLeftMargin = getActualLeftMargin(anchorTopX, coachMarkDimenInPixel);
                 coachMarkMarginRect = new Rect(actualLeftMargin - coachMarkDimenInPixel.getMarginRectInPixels().right, coachMarkDimenInPixel.getMarginRectInPixels().top + coachMarkDimenInPixel.getImageHeightInPixels(), NO_MARGIN, coachMarkDimenInPixel.getMarginRectInPixels().bottom);
-                mPopUpCoachMarkPresentation.setPopUpViewBottomRight(coachMarkMarginRect, CoachMarkLayoutOrientation.VERTICAL);
+                mPresentation.setPopUpViewBottomRight(coachMarkMarginRect, CoachMarkLayoutOrientation.VERTICAL);
                 notchPosition = getMarginLeftForNotch(mCoachMarkBuilder.getNotchPosition(), coachMarkDimenInPixel.getPopUpWidthInPixels(), coachMarkDimenInPixel.getNotchDimenInPixels());
                 notchMarginRect = new Rect(notchPosition + coachMarkDimenInPixel.getMarginOffsetForNotchInPixels(), NO_MARGIN, NO_MARGIN, NO_MARGIN);
-                mPopUpCoachMarkPresentation.setNotchPositionIfPopUpBottomRight(notchMarginRect, ROTATION_0);
+                mPresentation.setNotchPositionIfPopUpBottomRight(notchMarginRect, ROTATION_0);
                 notchUiAdjustmentMarginRect = new Rect(notchPosition + MULTIPLICATION_FACTOR_FOR_NOTCH_UI_ADJUSTMENT * coachMarkDimenInPixel.getMarginOffsetForNotchInPixels(), NO_MARGIN, NO_MARGIN, NO_MARGIN);
-                mPopUpCoachMarkPresentation.uiAdjustmentForNotchIfPopUpBottom(notchUiAdjustmentMarginRect);
+                mPresentation.uiAdjustmentForNotchIfPopUpBottom(notchUiAdjustmentMarginRect);
                 break;
         }
     }
@@ -231,7 +234,7 @@ public class PopUpCoachMarkPresenter {
             return;
         }
         for (InfoForViewToMask infoForViewToMask : infoForViewToMaskList) {
-            mPopUpCoachMarkPresentation.createViewToBeMaskedOut(
+            mPresentation.createViewToBeMaskedOut(
                     infoForViewToMask.getViewToMaskStartPosition().x,
                     infoForViewToMask.getViewToMaskStartPosition().y,
                     infoForViewToMask.getViewToMaskHeight(),
@@ -254,13 +257,13 @@ public class PopUpCoachMarkPresenter {
     private void createAnimationOnImage(@AnimationType int animationType) {
         switch (animationType) {
             case AnimationType.THROB_ANIMATION:
-                mPopUpCoachMarkPresentation.startThrobAnimationOnImage();
+                mPresentation.startThrobAnimationOnImage();
                 break;
             case AnimationType.ALPHA_ANIMATION:
-                mPopUpCoachMarkPresentation.startAlphaAnimationOnImage();
+                mPresentation.startAlphaAnimationOnImage();
                 break;
             case AnimationType.SCALE_ANIMATION:
-                mPopUpCoachMarkPresentation.startScaleAnimationOnImage();
+                mPresentation.startScaleAnimationOnImage();
                 break;
             case AnimationType.ANIMATION_NONE:
                 break;
@@ -273,7 +276,7 @@ public class PopUpCoachMarkPresenter {
                                            @DrawableRes int imageDrawableRes) {
         double centerX = (anchorTop.x + anchorBottom.x) / 2;
         double centerY = (anchorTop.y + anchorBottom.y) / 2;
-        mPopUpCoachMarkPresentation.setImageInformation(centerX, centerY, imageWidth,
+        mPresentation.setImageInformation(centerX, centerY, imageWidth,
                 imageHeight, backGroundTintForImage, imageDrawableRes);
     }
 
@@ -282,16 +285,16 @@ public class PopUpCoachMarkPresenter {
 
         switch (popUpPosition) {
             case PopUpPosition.LEFT:
-                mPopUpCoachMarkPresentation.setPopUpViewPositionWithRespectToImage(CoachMarkAlignPosition.ALIGN_RIGHT);
+                mPresentation.setPopUpViewPositionWithRespectToImage(CoachMarkAlignPosition.ALIGN_RIGHT);
                 break;
             case PopUpPosition.TOP:
-                mPopUpCoachMarkPresentation.setPopUpViewPositionWithRespectToImage(CoachMarkAlignPosition.ALIGN_BOTTOM);
+                mPresentation.setPopUpViewPositionWithRespectToImage(CoachMarkAlignPosition.ALIGN_BOTTOM);
                 break;
             case PopUpPosition.RIGHT:
-                mPopUpCoachMarkPresentation.setPopUpViewPositionWithRespectToImage(CoachMarkAlignPosition.ALIGN_LEFT);
+                mPresentation.setPopUpViewPositionWithRespectToImage(CoachMarkAlignPosition.ALIGN_LEFT);
                 break;
             case PopUpPosition.BOTTOM:
-                mPopUpCoachMarkPresentation.setPopUpViewPositionWithRespectToImage(CoachMarkAlignPosition.ALIGN_TOP);
+                mPresentation.setPopUpViewPositionWithRespectToImage(CoachMarkAlignPosition.ALIGN_TOP);
                 break;
             case PopUpPosition.NONE:
                 //TODO:: Handle this case
@@ -300,17 +303,16 @@ public class PopUpCoachMarkPresenter {
 
         switch (dismissButtonPosition) {
             case DialogDismissButtonPosition.LEFT:
-                mPopUpCoachMarkPresentation.setDismissButtonPositionLeft();
+                mPresentation.setDismissButtonPositionLeft();
                 break;
             case DialogDismissButtonPosition.RIGHT:
-                mPopUpCoachMarkPresentation.setDismissButtonPositionRight();
+                mPresentation.setDismissButtonPositionRight();
                 break;
         }
     }
 
     @PopUpPosition
-    private int getDisplayPosition(Point viewCenterPoint,
-                                   @PopUpPosition int defaultPopUpPosition,
+    private int getDisplayPosition(Point viewCenterPoint, @PopUpPosition int defaultPopUpPosition,
                                    CoachMarkPixelInfo coachMarkDimenInPixel) {
         @PopUpPosition
         int correctPosition = 0;
@@ -375,7 +377,8 @@ public class PopUpCoachMarkPresenter {
     @PopUpPosition
     private int getCorrectPositionOfCoachMarkIfDefaultFails(Point viewCenterPoint, CoachMarkPixelInfo coachMarkDimenInPixel) {
 
-        @PopUpPosition int correctPopUpPosition = PopUpPosition.NONE;
+        @PopUpPosition
+        int correctPopUpPosition = PopUpPosition.NONE;
 
         if (checkIfRightPossible(viewCenterPoint, coachMarkDimenInPixel))
             correctPopUpPosition = PopUpPosition.RIGHT;

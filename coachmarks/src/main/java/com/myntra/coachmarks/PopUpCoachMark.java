@@ -45,13 +45,14 @@ import butterknife.BindView;
 import zeta.android.utils.view.ViewUtils;
 
 public class PopUpCoachMark extends DialogFragment implements IPopUpCoachMarkPresentation, View.OnClickListener {
+
     private static final String TAG = PopUpCoachMark.class.getSimpleName();
 
     private static final int NO_MARGIN = 0;
     private static final String ARG_POP_UP_COACH_MARK_BUILDER_PARCEL = "ARG_POP_UP_COACH_MARK_BUILDER_PARCEL";
 
     private Views mViews;
-    private PopUpCoachMarkPresenter mPopUpCoachMarkPresenter;
+    private PopUpCoachMarkPresenter mPresenter;
 
     static class Views extends BaseViews {
 
@@ -91,10 +92,10 @@ public class PopUpCoachMark extends DialogFragment implements IPopUpCoachMarkPre
         @BindView(R2.id.v_notch_base_white_top)
         View vNotchBaseWhiteTop;
 
-        @BindView(R2.id.test)
-        LinearLayout test;
+        @BindView(R2.id.ll_coachmark_text_wrapper_layout)
+        LinearLayout llCoachMarkTextWrapperLayout;
 
-        Views(View root) {
+        Views(@NonNull View root) {
             super(root);
         }
     }
@@ -132,20 +133,24 @@ public class PopUpCoachMark extends DialogFragment implements IPopUpCoachMarkPre
         final ITypeFaceProvider typeFaceProvider = new DefaultTypeFaceProvider(context);
         final IScreenInfoProvider screenInfoProvider = new DefaultScreenInfoProvider(context);
 
-        mPopUpCoachMarkPresenter = new PopUpCoachMarkPresenter(stringResourceProvider, dimensionResourceProvider,
+        mPresenter = new PopUpCoachMarkPresenter(stringResourceProvider, dimensionResourceProvider,
                 typeFaceProvider, screenInfoProvider);
-        //coach mark bundle is injected in onCreate as its available from bundle only
+        //coach mark presenter params is injected in onCreate as it's available from bundle
         //If we decide to migrate to DI pattern this will be useful
-        mPopUpCoachMarkPresenter.onCreate(getCoachMarkBuilderFromBundle());
+        final CoachMarkBuilder coachMarkBuilderFromBundle = getCoachMarkBuilderFromBundle();
+        assert coachMarkBuilderFromBundle != null;
+        mPresenter.onCreate(coachMarkBuilderFromBundle);
     }
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         final View view = inflater.inflate(R.layout.pop_up_coach_mark, container, false);
         mViews = new Views(view);
-        mPopUpCoachMarkPresenter.onCreateView(this);
+        mPresenter.onCreateView(this);
         registerClickListener();
         return view;
     }
@@ -153,12 +158,13 @@ public class PopUpCoachMark extends DialogFragment implements IPopUpCoachMarkPre
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mPopUpCoachMarkPresenter.onViewCreated();
+        mPresenter.onViewCreated();
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        mPresenter.onDestroyView();
         unRegisterClickListener();
         mViews = null;
     }
@@ -166,8 +172,8 @@ public class PopUpCoachMark extends DialogFragment implements IPopUpCoachMarkPre
     @Override
     public void onDestroy() {
         super.onDestroy();
-        mPopUpCoachMarkPresenter.onDestroy();
-        mPopUpCoachMarkPresenter = null;
+        mPresenter.onDestroy();
+        mPresenter = null;
     }
 
     //region presentation methods
@@ -188,7 +194,7 @@ public class PopUpCoachMark extends DialogFragment implements IPopUpCoachMarkPre
     }
 
     @Override
-    public void onDismiss() {
+    public void closeCoachMarkDialog() {
         dismiss();
     }
 
@@ -210,7 +216,7 @@ public class PopUpCoachMark extends DialogFragment implements IPopUpCoachMarkPre
     }
 
     @Override
-    public void setPopUpViewTopLeft(Rect margin, @CoachMarkLayoutOrientation int orientation) {
+    public void setPopUpViewTopLeft(@NonNull Rect margin, @CoachMarkLayoutOrientation int orientation) {
         RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) mViews.llPopUpCoachMarkParent.getLayoutParams();
         layoutParams.setMargins(margin.left, margin.top, margin.right, margin.bottom);
         mViews.llPopUpCoachMarkParent.setLayoutParams(layoutParams);
@@ -220,7 +226,7 @@ public class PopUpCoachMark extends DialogFragment implements IPopUpCoachMarkPre
     }
 
     @Override
-    public void setPopUpViewBottomRight(Rect margin, @CoachMarkLayoutOrientation int orientation) {
+    public void setPopUpViewBottomRight(@NonNull Rect margin, @CoachMarkLayoutOrientation int orientation) {
         RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) mViews.llPopUpCoachMarkParent.getLayoutParams();
         layoutParams.setMargins(margin.left, margin.top, margin.right, margin.bottom);
         mViews.llPopUpCoachMarkParent.setLayoutParams(layoutParams);
@@ -233,23 +239,23 @@ public class PopUpCoachMark extends DialogFragment implements IPopUpCoachMarkPre
     public void setDismissButtonPositionLeft() {
         RelativeLayout.LayoutParams okButtonLayoutParams = (RelativeLayout.LayoutParams) mViews.tvPopUpDismissButton.getLayoutParams();
         RelativeLayout.LayoutParams separatorLayoutParams = (RelativeLayout.LayoutParams) mViews.vSeparator.getLayoutParams();
-        RelativeLayout.LayoutParams coachMarkTextParams = (RelativeLayout.LayoutParams) mViews.test.getLayoutParams();
+        RelativeLayout.LayoutParams coachMarkTextParams = (RelativeLayout.LayoutParams) mViews.llCoachMarkTextWrapperLayout.getLayoutParams();
         okButtonLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT, mViews.rlCoachMarkTextPart.getId());
         mViews.tvPopUpDismissButton.setLayoutParams(okButtonLayoutParams);
         separatorLayoutParams.addRule(RelativeLayout.RIGHT_OF, mViews.tvPopUpDismissButton.getId());
         mViews.vSeparator.setLayoutParams(separatorLayoutParams);
         coachMarkTextParams.addRule(RelativeLayout.RIGHT_OF, mViews.vSeparator.getId());
-        mViews.test.setLayoutParams(coachMarkTextParams);
+        mViews.llCoachMarkTextWrapperLayout.setLayoutParams(coachMarkTextParams);
     }
 
     @Override
     public void setDismissButtonPositionRight() {
         RelativeLayout.LayoutParams okButtonLayoutParams = (RelativeLayout.LayoutParams) mViews.tvPopUpDismissButton.getLayoutParams();
         RelativeLayout.LayoutParams separatorLayoutParams = (RelativeLayout.LayoutParams) mViews.vSeparator.getLayoutParams();
-        RelativeLayout.LayoutParams coachMarkTextParams = (RelativeLayout.LayoutParams) mViews.test.getLayoutParams();
+        RelativeLayout.LayoutParams coachMarkTextParams = (RelativeLayout.LayoutParams) mViews.llCoachMarkTextWrapperLayout.getLayoutParams();
         coachMarkTextParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT, mViews.rlCoachMarkTextPart.getId());
-        mViews.test.setLayoutParams(coachMarkTextParams);
-        separatorLayoutParams.addRule(RelativeLayout.RIGHT_OF, mViews.test.getId());
+        mViews.llCoachMarkTextWrapperLayout.setLayoutParams(coachMarkTextParams);
+        separatorLayoutParams.addRule(RelativeLayout.RIGHT_OF, mViews.llCoachMarkTextWrapperLayout.getId());
         mViews.vSeparator.setLayoutParams(separatorLayoutParams);
         okButtonLayoutParams.addRule(RelativeLayout.RIGHT_OF, mViews.vSeparator.getId());
         mViews.tvPopUpDismissButton.setLayoutParams(okButtonLayoutParams);
@@ -272,7 +278,7 @@ public class PopUpCoachMark extends DialogFragment implements IPopUpCoachMarkPre
     }
 
     @Override
-    public void setNotchPositionIfPopUpTopLeft(Rect margin, float rotation) {
+    public void setNotchPositionIfPopUpTopLeft(@NonNull Rect margin, float rotation) {
         mViews.vRightBottomNotch.setRotation(rotation);
         LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) mViews.vRightBottomNotch.getLayoutParams();
         layoutParams.setMargins(margin.left, margin.top, margin.right, margin.bottom);
@@ -280,7 +286,7 @@ public class PopUpCoachMark extends DialogFragment implements IPopUpCoachMarkPre
     }
 
     @Override
-    public void setNotchPositionIfPopUpBottomRight(Rect margin, float rotation) {
+    public void setNotchPositionIfPopUpBottomRight(@NonNull Rect margin, float rotation) {
         mViews.vLeftTopNotch.setRotation(rotation);
         LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) mViews.vLeftTopNotch.getLayoutParams();
         layoutParams.setMargins(margin.left, margin.top, margin.right, margin.bottom);
@@ -303,7 +309,7 @@ public class PopUpCoachMark extends DialogFragment implements IPopUpCoachMarkPre
     }
 
     @Override
-    public void uiAdjustmentForNotchIfPopUpRight(Rect margin) {
+    public void uiAdjustmentForNotchIfPopUpRight(@NonNull Rect margin) {
         ViewUtils.setToVisible(mViews.vNotchBaseWhiteLeft);
         RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) mViews.vNotchBaseWhiteLeft.getLayoutParams();
         layoutParams.setMargins(margin.left, margin.top, margin.right, margin.bottom);
@@ -311,7 +317,7 @@ public class PopUpCoachMark extends DialogFragment implements IPopUpCoachMarkPre
     }
 
     @Override
-    public void uiAdjustmentForNotchIfPopUpBottom(Rect margin) {
+    public void uiAdjustmentForNotchIfPopUpBottom(@NonNull Rect margin) {
         ViewUtils.setToVisible(mViews.vNotchBaseWhiteTop);
         RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) mViews.vNotchBaseWhiteTop.getLayoutParams();
         layoutParams.setMargins(margin.left, margin.top, margin.right, margin.bottom);
@@ -327,18 +333,22 @@ public class PopUpCoachMark extends DialogFragment implements IPopUpCoachMarkPre
 
     //region click listeners
     @Override
-    public void onClick(View v) {
+    public void onClick(@Nullable View v) {
+        if (v == null) {
+            return;
+        }
         if (v.getId() == R.id.tv_ok_button) {
-            if (mPopUpCoachMarkPresenter != null) {
-                mPopUpCoachMarkPresenter.onOkButtonClicked();
+            if (mPresenter != null) {
+                mPresenter.onOkButtonClicked();
             }
         } else if (v.getId() == R.id.rl_shim_out_view_parent) {
-            mPopUpCoachMarkPresenter.onShimClicked();
+            mPresenter.onShimClicked();
         }
     }
     //endregion
 
     //region helper methods
+    @Nullable
     private CoachMarkBuilder getCoachMarkBuilderFromBundle() {
         return getArguments().getParcelable(ARG_POP_UP_COACH_MARK_BUILDER_PARCEL);
     }

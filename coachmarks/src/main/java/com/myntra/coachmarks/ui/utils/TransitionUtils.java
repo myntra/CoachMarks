@@ -1,6 +1,7 @@
 package com.myntra.coachmarks.ui.utils;
 
 import android.animation.ValueAnimator;
+import android.support.annotation.NonNull;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
@@ -9,17 +10,21 @@ import android.view.animation.ScaleAnimation;
 
 public class TransitionUtils {
 
-    private static final int ALPHA_ANIMATION_DURATION = 2000;
     private static final double ALPHA_ANIMATION_FROM = 1;
     private static final double ALPHA_ANIMATION_TO = 0;
+
     private static final double SCALE_ANIMATION_FROM_X = 1;
     private static final double SCALE_ANIMATION_TO_X = 1.5;
     private static final double SCALE_ANIMATION_FROM_Y = 1;
     private static final double SCALE_ANIMATION_TO_Y = 1.5;
+
     private static final double SCALE_ANIMATION_PIVOT_X = .5;
     private static final double SCALE_ANIMATION_PIVOT_Y = .5;
+
+    private static final int ALPHA_ANIMATION_DURATION = 2000;
     private static final int SCALE_ANIMATION_DURATION = 2000;
 
+    @NonNull
     public static AnimationSet createThrobAnimation() {
         AnimationSet animationSet = new AnimationSet(false);
         animationSet.addAnimation(createAlphaAnimation());
@@ -27,6 +32,7 @@ public class TransitionUtils {
         return animationSet;
     }
 
+    @NonNull
     public static Animation createAlphaAnimation() {
         ScaleAnimation scaleAnimation = new ScaleAnimation((float) SCALE_ANIMATION_FROM_X,
                 (float) SCALE_ANIMATION_TO_X, (float) SCALE_ANIMATION_FROM_Y,
@@ -40,6 +46,7 @@ public class TransitionUtils {
         return scaleAnimation;
     }
 
+    @NonNull
     public static Animation createScaleAnimation() {
         AlphaAnimation alphaAnimation = new AlphaAnimation((float) ALPHA_ANIMATION_FROM,
                 (float) ALPHA_ANIMATION_TO);
@@ -49,4 +56,5 @@ public class TransitionUtils {
         alphaAnimation.setRepeatMode(ValueAnimator.RESTART);
         return alphaAnimation;
     }
+
 }
