@@ -24,6 +24,10 @@ public class TransitionUtils {
     private static final int ALPHA_ANIMATION_DURATION = 2000;
     private static final int SCALE_ANIMATION_DURATION = 2000;
 
+    private TransitionUtils() {
+        //Do nothing, This is added to avoid style check errors
+    }
+
     @NonNull
     public static AnimationSet createThrobAnimation() {
         AnimationSet animationSet = new AnimationSet(false);

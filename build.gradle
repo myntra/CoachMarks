@@ -85,7 +85,8 @@ subprojects {
         effort = "max"
         reportLevel = "high"
         excludeFilter = rootProject.file('config/findbugs/findbugs.xml')
-        classes = files("${project.rootDir}/app/build/intermediates/classes")
+        FileTree tree = fileTree("$project.buildDir/intermediates/classes").exclude('**/*R$*.class')
+        classes = tree
 
         source = fileTree('src/main/java')
         source 'src'
@@ -131,7 +132,7 @@ subprojects {
         def checkTask = tasks.findByName('check')
 
         checkTask.dependsOn('pmd')
-        //checkTask.dependsOn('findbugs')
+        checkTask.dependsOn('findbugs')
         checkTask.dependsOn('checkstyle')
         checkTask.dependsOn('lint')
 

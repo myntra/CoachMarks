@@ -54,7 +54,6 @@ public abstract class CoachMarkPixelInfo implements Parcelable {
 
     public abstract int getWidthHeightOffsetForCoachMarkPopUp();
 
-
     @AutoValue.Builder
     public static abstract class Builder {
 

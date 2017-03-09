@@ -10,7 +10,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
 @ParametersAreNonnullByDefault
 public class DefaultStringResourceProvider implements IStringResourceProvider {
 
-    private Context mContext;
+    private final Context mContext;
 
     public DefaultStringResourceProvider(final Context context) {
         mContext = context;

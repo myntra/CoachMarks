@@ -10,7 +10,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
 @ParametersAreNonnullByDefault
 public class DefaultDimensionResourceProvider implements IDimensionResourceProvider {
 
-    private Context mContext;
+    private final Context mContext;
 
     public DefaultDimensionResourceProvider(final Context context) {
         mContext = context;

@@ -24,11 +24,10 @@ public abstract class CoachMarkBuilder implements Parcelable {
     public static Builder create(Point coachMarkViewAnchorTop,
                                  Point coachMarkViewAnchorBottom,
                                  @StringRes int coachMarkMessage) {
-        double DEFAULT_NOTCH_POSITION = 0.0;
         return new AutoValue_CoachMarkBuilder.Builder()
                 .setAnchorTop(coachMarkViewAnchorTop)
                 .setCoachMarkMessage(coachMarkMessage)
-                .setNotchPosition(DEFAULT_NOTCH_POSITION)
+                .setNotchPosition(0.0)
                 .setAnchorBottom(coachMarkViewAnchorBottom)
                 .setFooterHeight(R.dimen.coach_mark_zero_dp)
                 .setActionBarHeight(R.dimen.coach_mark_zero_dp)

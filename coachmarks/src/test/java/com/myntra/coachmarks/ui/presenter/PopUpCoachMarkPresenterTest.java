@@ -3,10 +3,8 @@ package com.myntra.coachmarks.ui.presenter;
 import org.junit.Before;
 import org.junit.Test;
 
-/**
- * @author mudit.pant on 28/02/17.
- */
 public class PopUpCoachMarkPresenterTest {
+
     @Before
     public void setUp() throws Exception {
 

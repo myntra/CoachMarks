@@ -12,7 +12,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
 @ParametersAreNonnullByDefault
 public class DefaultTypeFaceProvider implements ITypeFaceProvider {
 
-    private Context mContext;
+    private final Context mContext;
 
     public DefaultTypeFaceProvider(final Context context) {
         mContext = context;

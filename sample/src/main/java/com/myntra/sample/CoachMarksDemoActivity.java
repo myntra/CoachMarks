@@ -17,7 +17,7 @@ import java.util.ArrayList;
 
 public class CoachMarksDemoActivity extends AppCompatActivity {
 
-    Button button;
+    private Button button;
 
     private static final String FILE_NAME_MYNTRA_FONT_REGULAR = "Whitney-Book-Bas.otf";
     private static final String FILE_NAME_MYNTRA_FONT_BOLD = "Whitney-Semibold-Bas.otf";
@@ -46,7 +46,7 @@ public class CoachMarksDemoActivity extends AppCompatActivity {
         InfoForViewToMask infoForViewToMask = InfoForViewToMask.create(new Point(500, 500), 800, 400).build();
         ArrayList<InfoForViewToMask> infoForViewToMaskArrayList = new ArrayList<>(1);
         infoForViewToMaskArrayList.add(infoForViewToMask);
-        ImageLayoutInformation imageLayoutInformation = ImageLayoutInformation.create(R.dimen.image_height, R.dimen.image_height).build();
+        ImageLayoutInformation imageLayoutInformation = ImageLayoutInformation.create(R.dimen.image_width, R.dimen.image_height).build();
         CoachMarkBuilder testBuilder = CoachMarkBuilder.create(anchorTop, anchorBottom, R.string.coach_mark_pdp_collections)
                 .setImageLayoutInformation(imageLayoutInformation)
                 .setUserDesiredPopUpPositionWithRespectToView(PopUpPosition.RIGHT)

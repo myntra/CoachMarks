@@ -12,7 +12,6 @@ public abstract class ImageLayoutInformation implements Parcelable {
         return new AutoValue_ImageLayoutInformation.Builder()
                 .setImageWidth(imageWidth)
                 .setImageHeight(imageHeight);
-
     }
 
     @DimenRes
@@ -29,6 +28,5 @@ public abstract class ImageLayoutInformation implements Parcelable {
         public abstract Builder setImageWidth(@DimenRes int imageWidth);
 
         public abstract ImageLayoutInformation build();
-
     }
 }

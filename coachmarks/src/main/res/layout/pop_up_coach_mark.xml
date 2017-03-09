@@ -13,6 +13,7 @@
         android:id="@+id/iv_coachmark_image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:contentDescription="@null"
         android:elevation="@dimen/coach_mark_elevation_coachmark"
         android:scaleType="centerInside" />
 
@@ -83,8 +84,9 @@
                     android:layout_height="match_parent"
                     android:layout_marginBottom="@dimen/coach_mark_pop_up_separator_bottom_margin"
                     android:layout_marginTop="@dimen/coach_mark_pop_up_separator_top_margin"
-                    android:src="@drawable/coach_mark_vertical_dashed_line_separator"
-                    android:layerType="software" />
+                    android:contentDescription="@null"
+                    android:layerType="software"
+                    android:src="@drawable/coach_mark_vertical_dashed_line_separator" />
 
             </RelativeLayout>
 
@@ -92,8 +94,8 @@
                 android:id="@+id/v_notch_base_white_top"
                 android:layout_width="@dimen/coach_mark_notch_bottom_invisible_width"
                 android:layout_height="1dp"
-                android:layout_alignParentStart="true"
                 android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
                 android:background="@color/coach_mark_white"
                 android:visibility="gone" />
@@ -102,8 +104,8 @@
                 android:id="@+id/v_notch_base_white_left"
                 android:layout_width="1dp"
                 android:layout_height="@dimen/coach_mark_notch_bottom_invisible_height"
-                android:layout_alignParentStart="true"
                 android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
                 android:background="@color/coach_mark_white"
                 android:visibility="gone" />

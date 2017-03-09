@@ -10,7 +10,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
 @ParametersAreNonnullByDefault
 public class DefaultScreenInfoProvider implements IScreenInfoProvider {
 
-    private Context mContext;
+    private final Context mContext;
 
     public DefaultScreenInfoProvider(final Context context) {
         mContext = context;
