@@ -221,8 +221,7 @@ public class PopUpCoachMark extends DialogFragment implements IPopUpCoachMarkPre
         layoutParams.setMargins(margin.left, margin.top, margin.right, margin.bottom);
         mViews.llPopUpCoachMarkParent.setLayoutParams(layoutParams);
         mViews.llPopUpCoachMarkParent.setOrientation(orientation);
-        mViews.vRightBottomNotch.setVisibility(View.VISIBLE);
-        mViews.vLeftTopNotch.setVisibility(View.GONE);
+        ViewUtils.showFirstAndHideOthers(mViews.vRightBottomNotch, mViews.vLeftTopNotch);
     }
 
     @Override
@@ -231,8 +230,7 @@ public class PopUpCoachMark extends DialogFragment implements IPopUpCoachMarkPre
         layoutParams.setMargins(margin.left, margin.top, margin.right, margin.bottom);
         mViews.llPopUpCoachMarkParent.setLayoutParams(layoutParams);
         mViews.llPopUpCoachMarkParent.setOrientation(orientation);
-        mViews.vRightBottomNotch.setVisibility(View.GONE);
-        mViews.vLeftTopNotch.setVisibility(View.VISIBLE);
+        ViewUtils.showFirstAndHideOthers(mViews.vLeftTopNotch, mViews.vRightBottomNotch);
     }
 
     @Override
@@ -265,7 +263,6 @@ public class PopUpCoachMark extends DialogFragment implements IPopUpCoachMarkPre
     public void startScaleAnimationOnImage() {
         mViews.ivCoachMarkImage.startAnimation(TransitionUtils.createScaleAnimation());
     }
-
 
     @Override
     public void startThrobAnimationOnImage() {
