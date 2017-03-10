@@ -38,7 +38,8 @@ public abstract class CoachMarkBuilder implements Parcelable {
                 .setBackGroundTintForImage(R.color.coach_mark_transparent_color)
                 .setCoachMarkLayoutMargin(CoachMarkLayoutMargin.create().build())
                 .setUserDesiredPopUpPositionWithRespectToView(PopUpPosition.RIGHT)
-                .setImageLayoutInformation(ImageLayoutInformation.create(R.dimen.coach_mark_zero_dp, R.dimen.coach_mark_zero_dp).build());
+                .setImageLayoutInformation(ImageLayoutInformation.create(R.dimen.coach_mark_zero_dp, R.dimen.coach_mark_zero_dp).build())
+                .setPopUpCoachMarkDismissButtonPosition(DialogDismissButtonPosition.RIGHT);
     }
 
     @NonNull
