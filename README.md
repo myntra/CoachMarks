@@ -28,9 +28,7 @@ Add the dependency
 ```
 
 ###Screenshots
-![coachMarkBottom](screenshots/coachmarkbottom.png)
-![coachMarkTop](screenshots/coachmarktop.png)
-![coachMarkBottom](screenshots/coachmarkcenter.png)
+![coachmarks](screenshots/coachmarks.png)
 
 License
 -------
