@@ -23,7 +23,7 @@ Add jitpack to your root `build.gradle`
 Add the dependency
 ```
 	dependencies {
-	        compile 'com.github.myntra:CoachMarks:0.0.4'
+	        compile 'com.github.myntra:CoachMarks:0.0.5'
 	}
 ```
 
