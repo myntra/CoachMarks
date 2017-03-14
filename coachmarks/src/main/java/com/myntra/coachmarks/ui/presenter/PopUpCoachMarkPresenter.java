@@ -13,7 +13,6 @@ import com.myntra.coachmarks.builder.CoachMarkBuilder;
 import com.myntra.coachmarks.builder.CoachMarkLayoutMargin;
 import com.myntra.coachmarks.builder.CoachMarkPixelInfo;
 import com.myntra.coachmarks.builder.InfoForViewToMask;
-import com.myntra.coachmarks.common.AnimationType;
 import com.myntra.coachmarks.common.CoachMarkAlignPosition;
 import com.myntra.coachmarks.common.CoachMarkLayoutOrientation;
 import com.myntra.coachmarks.common.CoachMarkTextGravity;
@@ -129,7 +128,7 @@ public class PopUpCoachMarkPresenter {
                 coachMarkDimenInPixel.getImageHeightInPixels(),
                 mCoachMarkBuilder.getBackGroundTintForImage(),
                 mCoachMarkBuilder.getImageDrawableRes());
-        createAnimationOnImage(mCoachMarkBuilder.getAnimationTypeOnImage());
+        mPresentation.startAnimationOnImage(mCoachMarkBuilder.getAnimationOnImage());
         showCoachMark(mCoachMarkBuilder.getPopUpCoachMarkDismissButtonPosition(),
                 popUpPosition);
     }
@@ -331,21 +330,7 @@ public class PopUpCoachMarkPresenter {
                 defaultPopUpPosition, coachMarkDimenInPixel);
     }
 
-    private void createAnimationOnImage(@AnimationType int animationType) {
-        switch (animationType) {
-            case AnimationType.THROB_ANIMATION:
-                mPresentation.startThrobAnimationOnImage();
-                break;
-            case AnimationType.ALPHA_ANIMATION:
-                mPresentation.startAlphaAnimationOnImage();
-                break;
-            case AnimationType.SCALE_ANIMATION:
-                mPresentation.startScaleAnimationOnImage();
-                break;
-            case AnimationType.ANIMATION_NONE:
-                break;
-        }
-    }
+
 
     private void setImageParamsAndPosition(Point anchorTop, Point anchorBottom,
                                            int imageWidth, int imageHeight,

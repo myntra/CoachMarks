@@ -37,5 +37,9 @@
     <dimen name="coach_mark_notch_bottom_invisible_height">17dp</dimen>
     <dimen name="coach_mark_notch_margin_offset">1dp</dimen>
 
+    <item name="coach_mark_scale_anim_from" format="float" type="dimen">1.0</item>
+    <item name="coach_mark_scale_anim_to" format="float" type="dimen">1.5</item>
+    <item name="coach_mark_alpha_anim_from" format="float" type="dimen">1.0</item>
+    <item name="coach_mark_alpha_anim_to" format="float" type="dimen">0.0</item>
 
 </resources>

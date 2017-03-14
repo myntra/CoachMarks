@@ -7,6 +7,7 @@ import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.annotation.AnimRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
@@ -17,6 +18,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -39,7 +42,6 @@ import com.myntra.coachmarks.providers.interfaces.ITypeFaceProvider;
 import com.myntra.coachmarks.ui.common.BaseViews;
 import com.myntra.coachmarks.ui.presentation.IPopUpCoachMarkPresentation;
 import com.myntra.coachmarks.ui.presenter.PopUpCoachMarkPresenter;
-import com.myntra.coachmarks.ui.utils.TransitionUtils;
 
 import butterknife.BindView;
 import zeta.android.utils.view.ViewUtils;
@@ -216,6 +218,27 @@ public class PopUpCoachMark extends DialogFragment implements IPopUpCoachMarkPre
     }
 
     @Override
+    public void startAnimationOnImage(@AnimRes int animationRes) {
+        Animation animation = AnimationUtils.loadAnimation(getContext(), animationRes);
+        animation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                mViews.ivCoachMarkImage.startAnimation(animation);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+        mViews.ivCoachMarkImage.startAnimation(animation);
+    }
+
+    @Override
     public void setPopUpViewTopLeft(@NonNull Rect margin, @CoachMarkLayoutOrientation int orientation) {
         RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) mViews.llPopUpCoachMarkParent.getLayoutParams();
         layoutParams.setMargins(margin.left, margin.top, margin.right, margin.bottom);
@@ -257,21 +280,6 @@ public class PopUpCoachMark extends DialogFragment implements IPopUpCoachMarkPre
         mViews.vSeparator.setLayoutParams(separatorLayoutParams);
         okButtonLayoutParams.addRule(RelativeLayout.RIGHT_OF, mViews.vSeparator.getId());
         mViews.tvPopUpDismissButton.setLayoutParams(okButtonLayoutParams);
-    }
-
-    @Override
-    public void startScaleAnimationOnImage() {
-        mViews.ivCoachMarkImage.startAnimation(TransitionUtils.createScaleAnimation());
-    }
-
-    @Override
-    public void startThrobAnimationOnImage() {
-        mViews.ivCoachMarkImage.startAnimation(TransitionUtils.createThrobAnimation());
-    }
-
-    @Override
-    public void startAlphaAnimationOnImage() {
-        mViews.ivCoachMarkImage.startAnimation(TransitionUtils.createAlphaAnimation());
     }
 
     @Override

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<set xmlns:android="http://schemas.android.com/apk/res/android"
+    android:fillAfter="true">
+
+    <scale
+        android:fromXScale="@dimen/coach_mark_scale_anim_from" android:toXScale="@dimen/coach_mark_scale_anim_to"
+        android:fromYScale="@dimen/coach_mark_scale_anim_from" android:toYScale="@dimen/coach_mark_scale_anim_to"
+        android:pivotX="50%" android:pivotY="50%"
+        android:interpolator="@android:anim/accelerate_decelerate_interpolator"
+        android:startOffset="@integer/coach_mark_animation_start_offset"
+        android:duration="@integer/coach_mark_animation_duration"/>
+    <alpha
+        android:fromAlpha="@dimen/coach_mark_alpha_anim_from"
+        android:toAlpha="@dimen/coach_mark_alpha_anim_to"
+        android:duration="@integer/coach_mark_animation_duration"
+        android:startOffset="@integer/coach_mark_animation_start_offset"
+        android:interpolator="@android:anim/accelerate_decelerate_interpolator"
+        />
+</set>
+

@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <integer name="coachmark_text_max_lines">2</integer>
-    <integer name="coachmark_max_char_button">3</integer>
+    <integer name="coach_mark_text_max_lines">2</integer>
+    <integer name="coach_mark_max_char_button">3</integer>
+    <integer name="coach_mark_animation_duration">2000</integer>
+    <integer name="coach_mark_animation_start_offset">500</integer>
 </resources>

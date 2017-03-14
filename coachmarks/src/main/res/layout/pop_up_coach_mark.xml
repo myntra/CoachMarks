@@ -50,7 +50,7 @@
                     android:backgroundTint="@color/coach_mark_transparent_color"
                     android:ellipsize="end"
                     android:gravity="center"
-                    android:maxLength="@integer/coachmark_text_max_lines"
+                    android:maxLength="@integer/coach_mark_text_max_lines"
                     android:text="@string/coachmark_ok_button_text"
                     android:textAllCaps="true"
                     android:textColor="@color/coach_mark_button_text_color"
@@ -71,7 +71,7 @@
                         android:layout_marginRight="@dimen/coach_mark_pop_up_text_padding_left"
                         android:layout_marginTop="@dimen/coach_mark_text_margin_top"
                         android:lineSpacingExtra="@dimen/coach_mark_similar_item_coach_mark_stroke"
-                        android:maxLines="@integer/coachmark_text_max_lines"
+                        android:maxLines="@integer/coach_mark_text_max_lines"
                         android:text="@null"
                         android:textColor="@color/coach_mark_text_color"
                         android:textSize="@dimen/coach_mark_text_size" />

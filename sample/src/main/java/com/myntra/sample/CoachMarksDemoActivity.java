@@ -54,6 +54,7 @@ public class CoachMarksDemoActivity extends AppCompatActivity {
                 .setNotchPosition(.34).setInfoForViewToMaskList(infoForViewToMaskArrayList)
                 .setImageDrawableRes(R.drawable.similar_item_drawable)
                 .setFontStyleForCoachMarkText(FILE_NAME_MYNTRA_FONT_REGULAR)
+                .setAnimationOnImage(R.anim.coach_mark_smaple_animation)
                 .setFontStyleForDismissButton(FILE_NAME_MYNTRA_FONT_BOLD).build();
         PopUpCoachMark popUpCoachMark = PopUpCoachMark.newInstance(testBuilder);
         popUpCoachMark.show(getSupportFragmentManager(), "Test");

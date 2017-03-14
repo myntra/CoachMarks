@@ -2,6 +2,7 @@ package com.myntra.coachmarks.ui.presentation;
 
 import android.graphics.Rect;
 import android.graphics.Typeface;
+import android.support.annotation.AnimRes;
 
 import com.myntra.coachmarks.common.CoachMarkAlignPosition;
 import com.myntra.coachmarks.common.CoachMarkLayoutOrientation;
@@ -17,15 +18,9 @@ public interface IPopUpCoachMarkPresentation {
 
     void closeCoachMarkDialog();
 
-    void startThrobAnimationOnImage();
-
     void setDismissButtonPositionLeft();
 
     void setDismissButtonPositionRight();
-
-    void startScaleAnimationOnImage();
-
-    void startAlphaAnimationOnImage();
 
     void setTypeFaceForDismissButton(Typeface typeface);
 
@@ -48,5 +43,7 @@ public interface IPopUpCoachMarkPresentation {
     void setCoachMarkMessage(String message);
 
     void setPopUpViewPositionWithRespectToImage(@CoachMarkAlignPosition int alignPosition);
+
+    void startAnimationOnImage(@AnimRes int animationRes);
 
 }

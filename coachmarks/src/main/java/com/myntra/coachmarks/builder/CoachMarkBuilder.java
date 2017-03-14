@@ -2,6 +2,7 @@ package com.myntra.coachmarks.builder;
 
 import android.graphics.Point;
 import android.os.Parcelable;
+import android.support.annotation.AnimRes;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DimenRes;
 import android.support.annotation.DrawableRes;
@@ -11,7 +12,6 @@ import android.support.annotation.StringRes;
 
 import com.google.auto.value.AutoValue;
 import com.myntra.coachmarks.R;
-import com.myntra.coachmarks.common.AnimationType;
 import com.myntra.coachmarks.common.CoachMarkTextGravity;
 import com.myntra.coachmarks.common.DialogDismissButtonPosition;
 import com.myntra.coachmarks.common.PopUpPosition;
@@ -33,13 +33,13 @@ public abstract class CoachMarkBuilder implements Parcelable {
                 .setActionBarHeight(R.dimen.coach_mark_zero_dp)
                 .setCoachMarkTextGravity(CoachMarkTextGravity.LEFT)
                 .setInfoForViewToMaskList(new ArrayList<InfoForViewToMask>(0))
-                .setAnimationTypeOnImage(AnimationType.THROB_ANIMATION)
                 .setImageDrawableRes(R.drawable.coachmark_drawable_no_image)
                 .setBackGroundTintForImage(R.color.coach_mark_transparent_color)
                 .setCoachMarkLayoutMargin(CoachMarkLayoutMargin.create().build())
                 .setUserDesiredPopUpPositionWithRespectToView(PopUpPosition.RIGHT)
                 .setImageLayoutInformation(ImageLayoutInformation.create(R.dimen.coach_mark_zero_dp, R.dimen.coach_mark_zero_dp).build())
-                .setPopUpCoachMarkDismissButtonPosition(DialogDismissButtonPosition.RIGHT);
+                .setPopUpCoachMarkDismissButtonPosition(DialogDismissButtonPosition.RIGHT)
+                .setAnimationOnImage(R.anim.coach_mark_animation);
     }
 
     @NonNull
@@ -63,9 +63,6 @@ public abstract class CoachMarkBuilder implements Parcelable {
 
     @Nullable
     public abstract ArrayList<InfoForViewToMask> getInfoForViewToMaskList();
-
-    @AnimationType
-    public abstract int getAnimationTypeOnImage();
 
     @CoachMarkTextGravity
     public abstract int getCoachMarkTextGravity();
@@ -94,6 +91,9 @@ public abstract class CoachMarkBuilder implements Parcelable {
 
     public abstract ImageLayoutInformation getImageLayoutInformation();
 
+    @AnimRes
+    public abstract int getAnimationOnImage();
+
     @AutoValue.Builder
     public static abstract class Builder {
 
@@ -115,8 +115,6 @@ public abstract class CoachMarkBuilder implements Parcelable {
 
         public abstract Builder setInfoForViewToMaskList(@Nullable ArrayList<InfoForViewToMask> infoForViewToMaskList);
 
-        public abstract Builder setAnimationTypeOnImage(@AnimationType int animationTypeOnImage);
-
         public abstract Builder setPopUpCoachMarkDismissButtonPosition(@DialogDismissButtonPosition int popUpCoachMarkDismissButtonPosition);
 
         public abstract Builder setNotchPosition(double notchPosition);
@@ -130,6 +128,8 @@ public abstract class CoachMarkBuilder implements Parcelable {
         public abstract Builder setCoachMarkLayoutMargin(CoachMarkLayoutMargin coachMarkLayoutMargin);
 
         public abstract Builder setImageLayoutInformation(ImageLayoutInformation imageLayoutInformation);
+
+        public abstract Builder setAnimationOnImage(@AnimRes int animationOnImage);
 
         public abstract CoachMarkBuilder build();
 
