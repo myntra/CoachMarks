@@ -27,10 +27,10 @@ Add the dependency
 	}
 ```
 
-###Screenshots
+### Screenshots
 ![coachmarks](screenshots/coachmarks.png)
 
-##CoachMarks
+## CoachMarks
 ![coachmarksGif](screenshots/coachmarks.gif)
 
 
