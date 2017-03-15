@@ -30,7 +30,6 @@ Add the dependency
 ### Screenshots
 ![coachmarks](screenshots/coachmarks.png)
 
-## CoachMarks
 ![coachmarksGif](screenshots/coachmarks.gif)
 
 
