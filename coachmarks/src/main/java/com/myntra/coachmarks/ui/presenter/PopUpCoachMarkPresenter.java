@@ -242,12 +242,12 @@ public class PopUpCoachMarkPresenter {
                         coachMarkDimenInPixel.getPopUpHeightInPixels(),
                         coachMarkDimenInPixel.getNotchDimenInPixels());
                 notchMarginRect = new Rect(NO_MARGIN,
-                        notchPosition - (int)(MULTIPLICATION_FACTOR_NOTCH_POSITION * coachMarkDimenInPixel.getMarginOffsetForNotchInPixels()),
+                        notchPosition - (int) (MULTIPLICATION_FACTOR_NOTCH_POSITION * coachMarkDimenInPixel.getMarginOffsetForNotchInPixels()),
                         NO_MARGIN,
                         NO_MARGIN);
                 mPresentation.setNotchPositionIfPopUpBottomRight(notchMarginRect, ROTATION_270);
                 notchUiAdjustmentMarginRect = new Rect(NO_MARGIN,
-                        notchPosition + (int)(MULTIPLICATION_FACTOR_FOR_UI_ADJUSTMENT_RIGHT * coachMarkDimenInPixel.getMarginOffsetForNotchInPixels() + PIXEL_ADJUSTMENT_NOTCH),
+                        notchPosition + (int) (MULTIPLICATION_FACTOR_FOR_UI_ADJUSTMENT_RIGHT * coachMarkDimenInPixel.getMarginOffsetForNotchInPixels() + PIXEL_ADJUSTMENT_NOTCH),
                         NO_MARGIN,
                         NO_MARGIN);
                 mPresentation.uiAdjustmentForNotchIfPopUpRight(notchUiAdjustmentMarginRect);
@@ -272,7 +272,7 @@ public class PopUpCoachMarkPresenter {
                         NO_MARGIN);
                 mPresentation.setNotchPositionIfPopUpBottomRight(notchMarginRect, ROTATION_0);
                 notchUiAdjustmentMarginRect = new Rect(notchPosition +
-                        (int)(MULTIPLICATION_FACTOR_FOR_NOTCH_UI_ADJUSTMENT_BOTTOM *
+                        (int) (MULTIPLICATION_FACTOR_FOR_NOTCH_UI_ADJUSTMENT_BOTTOM *
                                 coachMarkDimenInPixel.getMarginOffsetForNotchInPixels()),
                         NO_MARGIN,
                         NO_MARGIN,
@@ -336,7 +336,6 @@ public class PopUpCoachMarkPresenter {
         return getDisplayPosition(centerViewPoint,
                 defaultPopUpPosition, coachMarkDimenInPixel);
     }
-
 
 
     private void setImageParamsAndPosition(Point anchorTop, Point anchorBottom,
