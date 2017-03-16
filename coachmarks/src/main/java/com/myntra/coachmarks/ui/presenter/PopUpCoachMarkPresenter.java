@@ -9,7 +9,6 @@ import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.util.Log;
 
-import com.myntra.coachmarks.PopUpCoachMark;
 import com.myntra.coachmarks.R;
 import com.myntra.coachmarks.builder.CoachMarkBuilder;
 import com.myntra.coachmarks.builder.CoachMarkLayoutMargin;
