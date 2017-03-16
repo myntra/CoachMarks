@@ -10,6 +10,7 @@ import com.myntra.coachmarks.PopUpCoachMark;
 import com.myntra.coachmarks.builder.CoachMarkBuilder;
 import com.myntra.coachmarks.builder.ImageLayoutInformation;
 import com.myntra.coachmarks.builder.InfoForViewToMask;
+import com.myntra.coachmarks.common.CoachMarkTextGravity;
 import com.myntra.coachmarks.common.DialogDismissButtonPosition;
 import com.myntra.coachmarks.common.PopUpPosition;
 
@@ -49,8 +50,9 @@ public class CoachMarksDemoActivity extends AppCompatActivity {
         ImageLayoutInformation imageLayoutInformation = ImageLayoutInformation.create(R.dimen.image_width, R.dimen.image_height).build();
         CoachMarkBuilder testBuilder = CoachMarkBuilder.create(anchorTop, anchorBottom, R.string.coach_mark_pdp_collections)
                 .setImageLayoutInformation(imageLayoutInformation)
-                .setUserDesiredPopUpPositionWithRespectToView(PopUpPosition.RIGHT)
-                .setPopUpCoachMarkDismissButtonPosition(DialogDismissButtonPosition.RIGHT)
+                .setUserDesiredPopUpPositionWithRespectToView(PopUpPosition.TOP)
+                .setPopUpCoachMarkDismissButtonPosition(DialogDismissButtonPosition.LEFT)
+                .setCoachMarkTextGravity(CoachMarkTextGravity.CENTER)
                 .setNotchPosition(.34).setInfoForViewToMaskList(infoForViewToMaskArrayList)
                 .setImageDrawableRes(R.drawable.similar_item_drawable)
                 .setFontStyleForCoachMarkText(FILE_NAME_MYNTRA_FONT_REGULAR)

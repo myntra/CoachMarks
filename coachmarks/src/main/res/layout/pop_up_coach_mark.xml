@@ -43,28 +43,15 @@
                 android:background="@drawable/coachmark_pop_up_drawable"
                 android:visibility="visible">
 
-                <android.support.v7.widget.AppCompatTextView
-                    android:id="@+id/tv_ok_button"
-                    android:layout_width="@dimen/coach_mark_pop_up_ok_button_width"
-                    android:layout_height="@dimen/coach_mark_pop_up_ok_button_width_height"
-                    android:backgroundTint="@color/coach_mark_transparent_color"
-                    android:ellipsize="end"
-                    android:gravity="center"
-                    android:maxLength="@integer/coach_mark_text_max_lines"
-                    android:text="@string/coachmark_ok_button_text"
-                    android:textAllCaps="true"
-                    android:textColor="@color/coach_mark_button_text_color"
-                    android:textSize="@dimen/coach_mark_text_size_ok_button" />
-
                 <LinearLayout
                     android:id="@+id/ll_coachmark_text_wrapper_layout"
-                    android:layout_width="148dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="@dimen/coach_mark_pop_up_text_view_height"
                     android:orientation="horizontal">
 
                     <android.support.v7.widget.AppCompatTextView
                         android:id="@+id/tv_coachmark_text"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_marginBottom="@dimen/coach_mark_text_padding_top_bottom"
                         android:layout_marginLeft="@dimen/coach_mark_pop_up_text_padding_left"
@@ -87,6 +74,19 @@
                     android:contentDescription="@null"
                     android:layerType="software"
                     android:src="@drawable/coach_mark_vertical_dashed_line_separator" />
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/tv_ok_button"
+                    android:layout_width="@dimen/coach_mark_pop_up_ok_button_width"
+                    android:layout_height="@dimen/coach_mark_pop_up_ok_button_width_height"
+                    android:backgroundTint="@color/coach_mark_transparent_color"
+                    android:ellipsize="end"
+                    android:gravity="center"
+                    android:maxLength="@integer/coach_mark_text_max_lines"
+                    android:text="@string/coachmark_ok_button_text"
+                    android:textAllCaps="true"
+                    android:textColor="@color/coach_mark_button_text_color"
+                    android:textSize="@dimen/coach_mark_text_size_ok_button" />
 
             </RelativeLayout>
 

@@ -1,4 +1,4 @@
 <resources>
     <string name="app_name">CoachMarks</string>
-    <string name="coach_mark_pdp_collections">Long press to quickly save item to wishlist</string>
+    <string name="coach_mark_pdp_collections">Tap &amp; hold to save \n item to other collections</string>
 </resources>
