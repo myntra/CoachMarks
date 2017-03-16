@@ -192,7 +192,7 @@ public class PopUpCoachMark extends DialogFragment implements IPopUpCoachMarkPre
     @Override
     public void dismissWithError(String message) {
         Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
-        ViewUtils.setToInvisible(mViews.rlCoachMarkParent);
+        ViewUtils.showFirstAndHideOthers(mViews.rlShimOutViewParent, mViews.ivCoachMarkImage, mViews.llPopUpCoachMarkParent);
     }
 
     @Override

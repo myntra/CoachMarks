@@ -8,7 +8,7 @@
     <color name="coach_mark_white">#FFFFFF</color>
     <color name="coach_mark_mask_color">#70000000</color>
     <color name="coach_mark_black_translucent">#50000000</color>
-    <color name="coach_mark_separator_color">#bfc0c6</color>
+    <color name="coach_mark_separator_color">#D4D5D9</color>
     <color name="primary_color_dark">#1B202A</color>
     <color name="color_accent">#0BC6A0</color>
     <color name="primary_color">#FFFFFF</color>
