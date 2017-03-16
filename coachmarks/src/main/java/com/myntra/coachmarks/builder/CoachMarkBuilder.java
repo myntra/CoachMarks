@@ -6,7 +6,6 @@ import android.support.annotation.AnimRes;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DimenRes;
 import android.support.annotation.DrawableRes;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 
@@ -42,8 +41,6 @@ public abstract class CoachMarkBuilder implements Parcelable {
                 .setAnimationOnImage(R.anim.coach_mark_animation);
     }
 
-    @NonNull
-    @SuppressWarnings("unused")
     public Builder newBuilder() {
         return new AutoValue_CoachMarkBuilder.Builder(this);
     }

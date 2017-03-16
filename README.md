@@ -1,4 +1,4 @@
-# CoachMarks (Work In Progress)
+# CoachMarks
 
 [![Platform](https://img.shields.io/badge/platform-android-green.svg)](http://developer.android.com/index.html)
 ![SDK](https://img.shields.io/badge/SDK-16%2B-green.svg)
