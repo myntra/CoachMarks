@@ -7,7 +7,9 @@ import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
+import android.util.Log;
 
+import com.myntra.coachmarks.PopUpCoachMark;
 import com.myntra.coachmarks.R;
 import com.myntra.coachmarks.builder.CoachMarkBuilder;
 import com.myntra.coachmarks.builder.CoachMarkLayoutMargin;
@@ -33,6 +35,8 @@ import zeta.android.utils.lang.StringUtils;
 @ParametersAreNonnullByDefault
 public class PopUpCoachMarkPresenter {
 
+    private static final String TAG = PopUpCoachMarkPresenter.class.getSimpleName();
+
     private static final double MAX_NOTCH_RANGE = .85;
     private static final double MIN_NOTCH_RANGE = 0.0;
 
@@ -43,7 +47,11 @@ public class PopUpCoachMarkPresenter {
     private static final float ROTATION_180 = 180;
     private static final float ROTATION_270 = 270;
 
-    private static final int MULTIPLICATION_FACTOR_FOR_NOTCH_UI_ADJUSTMENT = 3;
+    private static final double MULTIPLICATION_FACTOR_NOTCH_POSITION = 1.8;
+    private static final double MULTIPLICATION_FACTOR_FOR_NOTCH_UI_ADJUSTMENT_BOTTOM = 2.9;
+    private static final double MULTIPLICATION_FACTOR_FOR_UI_ADJUSTMENT_RIGHT = 0.4;
+    private static final double PIXEL_ADJUSTMENT_NOTCH = 0.5;
+
 
     private CoachMarkBuilder mCoachMarkBuilder;
     private IPopUpCoachMarkPresentation mPresentation;
@@ -235,12 +243,12 @@ public class PopUpCoachMarkPresenter {
                         coachMarkDimenInPixel.getPopUpHeightInPixels(),
                         coachMarkDimenInPixel.getNotchDimenInPixels());
                 notchMarginRect = new Rect(NO_MARGIN,
-                        notchPosition - (2 * coachMarkDimenInPixel.getMarginOffsetForNotchInPixels()),
+                        notchPosition - (int)(MULTIPLICATION_FACTOR_NOTCH_POSITION * coachMarkDimenInPixel.getMarginOffsetForNotchInPixels()),
                         NO_MARGIN,
                         NO_MARGIN);
                 mPresentation.setNotchPositionIfPopUpBottomRight(notchMarginRect, ROTATION_270);
                 notchUiAdjustmentMarginRect = new Rect(NO_MARGIN,
-                        notchPosition - coachMarkDimenInPixel.getMarginOffsetForNotchInPixels(),
+                        notchPosition + (int)(MULTIPLICATION_FACTOR_FOR_UI_ADJUSTMENT_RIGHT * coachMarkDimenInPixel.getMarginOffsetForNotchInPixels() + PIXEL_ADJUSTMENT_NOTCH),
                         NO_MARGIN,
                         NO_MARGIN);
                 mPresentation.uiAdjustmentForNotchIfPopUpRight(notchUiAdjustmentMarginRect);
@@ -265,8 +273,8 @@ public class PopUpCoachMarkPresenter {
                         NO_MARGIN);
                 mPresentation.setNotchPositionIfPopUpBottomRight(notchMarginRect, ROTATION_0);
                 notchUiAdjustmentMarginRect = new Rect(notchPosition +
-                        MULTIPLICATION_FACTOR_FOR_NOTCH_UI_ADJUSTMENT *
-                                coachMarkDimenInPixel.getMarginOffsetForNotchInPixels(),
+                        (int)(MULTIPLICATION_FACTOR_FOR_NOTCH_UI_ADJUSTMENT_BOTTOM *
+                                coachMarkDimenInPixel.getMarginOffsetForNotchInPixels()),
                         NO_MARGIN,
                         NO_MARGIN,
                         NO_MARGIN);
@@ -363,7 +371,7 @@ public class PopUpCoachMarkPresenter {
                         CoachMarkAlignPosition.ALIGN_TOP);
                 break;
             case PopUpPosition.NONE:
-                //TODO:: Handle this case
+                Log.wtf(TAG, "This should not have happened here. No position found case already handled");
                 break;
         }
 
@@ -419,7 +427,9 @@ public class PopUpCoachMarkPresenter {
                 }
                 break;
             case PopUpPosition.NONE:
-                //TODO:: Handle this
+                //if user selects no position by default check clockwise to find the correct position
+                correctPosition = getCorrectPositionOfCoachMarkIfDefaultFails(viewCenterPoint,
+                        coachMarkDimenInPixel);
                 break;
         }
         return correctPosition;
