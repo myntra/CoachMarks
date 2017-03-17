@@ -26,8 +26,8 @@
     <dimen name="coach_mark_pop_up_text_width">8dp</dimen>
     <dimen name="coach_mark_pop_up_width_height_offset">6dp</dimen>
 
-    <dimen name="coach_mark_text_size">14sp</dimen>
-    <dimen name="coach_mark_text_size_ok_button">16sp</dimen>
+    <dimen name="coach_mark_text_size">14dp</dimen>
+    <dimen name="coach_mark_text_size_ok_button">16dp</dimen>
 
     <dimen name="coach_mark_text_margin_top">6dp</dimen>
     <dimen name="coach_mark_text_padding_top_bottom">8dp</dimen>
