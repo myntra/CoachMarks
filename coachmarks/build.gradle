@@ -61,5 +61,8 @@ dependencies {
     //TESTING
     testCompile libraries.junit
     testCompile libraries.mockitoCore
+    testCompile libraries.powerMockitoApi
+    testCompile libraries.powerMockitoJunitRule
+    testCompile libraries.powerMockitoJunit
 
 }

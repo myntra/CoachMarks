@@ -57,6 +57,7 @@ ext.versions = [
         assertJVersion                    : '1.7.1',
         equalsVerifierVersion             : '1.7.5',
         mockitoVersion                    : '1.10.19',
+        powerMockitoVersion               : '1.6.2',
         supportTestRunnerVersion          : '0.4.1',
         supportTestVersion                : "0.4.1",
         espressoVersion                   : '2.2.1',
@@ -191,6 +192,10 @@ ext.libraries = [
         equalsVerifier             : "nl.jqno.equalsverifier:equalsverifier:$versions.equalsVerifierVersion",
 
         mockitoCore                : "org.mockito:mockito-core:$versions.mockitoVersion",
+        powerMockitoJunit          : "org.powermock:powermock-module-junit4-rule:$versions.powerMockitoVersion",
+        powerMockitoJunitRule       : "org.powermock:powermock-module-junit4:$versions.powerMockitoVersion",
+        powerMockitoApi            : "org.powermock:powermock-api-mockito:$versions.powerMockitoVersion",
+        powerMockitoClassLoading   : "org.powermock:powermock-classloading-xstream:$versions.powerMockitoVersion",
         okHttpMockWebServer        : "com.squareup.okhttp3:mockwebserver:$versions.okHttp3Version",
         retrofitMock               : "com.squareup.retrofit2:retrofit-mock:$versions.retrofitVersion",
 
@@ -203,4 +208,7 @@ ext.libraries = [
         espressoCore               : "com.android.support.test.espresso:espresso-core:$versions.espressoVersion",
         espressoContrib            : "com.android.support.test.espresso:espresso-contrib:$versions.espressoVersion",
         //endregion
+
+
 ]
+

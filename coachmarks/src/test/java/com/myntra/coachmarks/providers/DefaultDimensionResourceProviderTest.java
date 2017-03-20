@@ -12,6 +12,10 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import static org.mockito.Matchers.anyInt;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -37,6 +41,10 @@ public class DefaultDimensionResourceProviderTest {
         when(mMockContext.getResources()).thenReturn(mMockedResources);
         when(mMockedResources.getDimensionPixelSize(MOCKED_DIMEN_RES)).thenReturn(MOCKED_PIXEL_DIMEN);
         assert (mDimensionResourceProvider.getDimensionInPixel(MOCKED_DIMEN_RES) == MOCKED_PIXEL_DIMEN);
+        verify(mMockContext,times(1)).getResources();
+        verify(mMockedResources,times(1)).getDimensionPixelSize(anyInt());
+        verifyNoMoreInteractions(mMockContext);
+        verifyNoMoreInteractions(mMockedResources);
     }
 
     @Test
@@ -44,6 +52,10 @@ public class DefaultDimensionResourceProviderTest {
         when(mMockContext.getResources()).thenReturn(mMockedResources);
         when(mMockedResources.getDimensionPixelSize(MOCKED_DIMEN_RES)).thenReturn(MOCKED_PIXEL_DIMEN);
         assert (mDimensionResourceProvider.getDimensionInPixel(MOCKED_DIMEN_RES) != 100);
+        verify(mMockContext,times(1)).getResources();
+        verify(mMockedResources,times(1)).getDimensionPixelSize(anyInt());
+        verifyNoMoreInteractions(mMockContext);
+        verifyNoMoreInteractions(mMockedResources);
     }
 
 }
