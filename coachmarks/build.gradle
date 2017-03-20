@@ -60,5 +60,6 @@ dependencies {
 
     //TESTING
     testCompile libraries.junit
+    testCompile libraries.mockitoCore
 
 }
