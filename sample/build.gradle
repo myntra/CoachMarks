@@ -29,6 +29,14 @@ android {
         htmlOutput file("$project.buildDir/reports/lint/lint-result.html")
         xmlOutput file("$project.buildDir/reports/lint/lint-result.xml")
     }
+
+    // This allows us see tests execution progress in the output on the CI.
+    testOptions.unitTests.all {
+        testLogging {
+            events 'passed', 'skipped', 'failed', 'standardOut', 'standardError'
+            exceptionFormat 'full'
+        }
+    }
 }
 
 dependencies {
