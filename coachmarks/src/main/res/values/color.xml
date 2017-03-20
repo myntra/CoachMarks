@@ -6,7 +6,6 @@
     <color name="coach_mark_button_text_color">#526cd0</color>
     <color name="coach_mark_notch_stroke_color">#D4D5D9</color>
     <color name="coach_mark_white">#FFFFFF</color>
-    <color name="coach_mark_mask_color">#70000000</color>
     <color name="coach_mark_black_translucent">#50000000</color>
     <color name="coach_mark_separator_color">#D4D5D9</color>
     <color name="primary_color_dark">#1B202A</color>

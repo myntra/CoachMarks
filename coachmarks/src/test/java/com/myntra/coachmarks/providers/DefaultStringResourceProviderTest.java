@@ -23,7 +23,8 @@ public class DefaultStringResourceProviderTest {
 
     private static final String MOCKED_STRING = "This is a mocked string";
     private static final String MOCK_TEST = "mocked";
-    @StringRes private static final int MOCKED_STRING_RES = 1;
+    @StringRes
+    private static final int MOCKED_STRING_RES = 1;
 
     @Mock
     Context mMockContext;
@@ -38,16 +39,16 @@ public class DefaultStringResourceProviderTest {
     @Test
     public void getStringFromResourceTest() throws Exception {
         when(mMockContext.getString(MOCKED_STRING_RES)).thenReturn(MOCKED_STRING);
-        assert(mStringResourceProvider.getStringFromResource(MOCKED_STRING_RES).equals(MOCKED_STRING));
-        verify(mMockContext,times(1)).getString(anyInt());
+        assert (mStringResourceProvider.getStringFromResource(MOCKED_STRING_RES).equals(MOCKED_STRING));
+        verify(mMockContext, times(1)).getString(anyInt());
         verifyNoMoreInteractions(mMockContext);
     }
 
     @Test
     public void getStringFromResourceWithArgsTest() throws Exception {
-        when(mMockContext.getString(MOCKED_STRING_RES, MOCK_TEST )).thenReturn(MOCKED_STRING);
-        assert(mStringResourceProvider.getStringFromResource(MOCKED_STRING_RES, MOCK_TEST).equals(MOCKED_STRING));
-        verify(mMockContext,times(1)).getString(anyInt(), Matchers.any());
+        when(mMockContext.getString(MOCKED_STRING_RES, MOCK_TEST)).thenReturn(MOCKED_STRING);
+        assert (mStringResourceProvider.getStringFromResource(MOCKED_STRING_RES, MOCK_TEST).equals(MOCKED_STRING));
+        verify(mMockContext, times(1)).getString(anyInt(), Matchers.any());
         verifyNoMoreInteractions(mMockContext);
     }
 

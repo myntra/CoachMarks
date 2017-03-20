@@ -2,11 +2,12 @@ package com.myntra.android.sample;
 
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static junit.framework.Assert.assertEquals;
+
 
 public class CoachMarkUnitTest {
     @Test
-    public void addition_isCorrect() throws Exception {
+    public void additionIsCorrect() throws Exception {
         assertEquals(4, 2 + 2);
     }
 }

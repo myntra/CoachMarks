@@ -32,7 +32,7 @@ public class DefaultDimensionResourceProviderTest {
     IDimensionResourceProvider mDimensionResourceProvider;
 
     @Before
-    public void setUp(){
+    public void setUp() {
         mDimensionResourceProvider = new DefaultDimensionResourceProvider(mMockContext);
     }
 
@@ -41,8 +41,8 @@ public class DefaultDimensionResourceProviderTest {
         when(mMockContext.getResources()).thenReturn(mMockedResources);
         when(mMockedResources.getDimensionPixelSize(MOCKED_DIMEN_RES)).thenReturn(MOCKED_PIXEL_DIMEN);
         assert (mDimensionResourceProvider.getDimensionInPixel(MOCKED_DIMEN_RES) == MOCKED_PIXEL_DIMEN);
-        verify(mMockContext,times(1)).getResources();
-        verify(mMockedResources,times(1)).getDimensionPixelSize(anyInt());
+        verify(mMockContext, times(1)).getResources();
+        verify(mMockedResources, times(1)).getDimensionPixelSize(anyInt());
         verifyNoMoreInteractions(mMockContext);
         verifyNoMoreInteractions(mMockedResources);
     }
@@ -52,8 +52,8 @@ public class DefaultDimensionResourceProviderTest {
         when(mMockContext.getResources()).thenReturn(mMockedResources);
         when(mMockedResources.getDimensionPixelSize(MOCKED_DIMEN_RES)).thenReturn(MOCKED_PIXEL_DIMEN);
         assert (mDimensionResourceProvider.getDimensionInPixel(MOCKED_DIMEN_RES) != 100);
-        verify(mMockContext,times(1)).getResources();
-        verify(mMockedResources,times(1)).getDimensionPixelSize(anyInt());
+        verify(mMockContext, times(1)).getResources();
+        verify(mMockedResources, times(1)).getDimensionPixelSize(anyInt());
         verifyNoMoreInteractions(mMockContext);
         verifyNoMoreInteractions(mMockedResources);
     }

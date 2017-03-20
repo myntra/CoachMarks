@@ -14,7 +14,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:contentDescription="@null"
-        android:elevation="@dimen/coach_mark_elevation_coachmark"
         android:scaleType="centerInside" />
 
     <LinearLayout
@@ -79,7 +78,6 @@
                     android:id="@+id/tv_ok_button"
                     android:layout_width="@dimen/coach_mark_pop_up_ok_button_width"
                     android:layout_height="@dimen/coach_mark_pop_up_ok_button_width_height"
-                    android:backgroundTint="@color/coach_mark_transparent_color"
                     android:ellipsize="end"
                     android:gravity="center"
                     android:maxLength="@integer/coach_mark_text_max_lines"
