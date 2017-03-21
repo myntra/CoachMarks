@@ -127,6 +127,7 @@ public class PopUpCoachMarkPresenter {
                 mCoachMarkBuilder.getAnchorTop().y,
                 mCoachMarkBuilder.getAnchorBottom().y,
                 mCoachMarkBuilder.getAnchorTop().x,
+                mCoachMarkBuilder.getAnchorBottom().x,
                 coachMarkDimenInPixel);
         detectAndCreateShimOutViews(mCoachMarkBuilder.getInfoForViewToMaskList());
         setImageParamsAndPosition(mCoachMarkBuilder.getAnchorTop(),
@@ -183,11 +184,13 @@ public class PopUpCoachMarkPresenter {
                                      int anchorTopY,
                                      int anchorBottomY,
                                      int anchorTopX,
+                                     int anchorBottomX,
                                      CoachMarkPixelInfo coachMarkDimenInPixel) {
         int notchPosition;
         int actualTopMargin;
         int actualLeftMargin;
         int centerY = (anchorTopY + anchorBottomY) / 2;
+        int centerX = (anchorTopX + anchorBottomX) / 2;
 
         Rect notchMarginRect;
         Rect coachMarkMarginRect;
@@ -436,9 +439,7 @@ public class PopUpCoachMarkPresenter {
     private boolean checkIfLeftPossible(Point viewCenterPoint,
                                         CoachMarkPixelInfo coachMarkDimenInPixel) {
         int centerX = viewCenterPoint.x;
-        return (coachMarkDimenInPixel.getPopUpWidthInPixelsWithOffset() +
-                coachMarkDimenInPixel.getMarginRectInPixels().right +
-                coachMarkDimenInPixel.getMarginRectInPixels().left) < centerX &&
+        return (coachMarkDimenInPixel.getPopUpWidthInPixelsWithOffset()) < centerX &&
                 ((coachMarkDimenInPixel.getPopUpHeightInPixelsWithOffset() +
                         coachMarkDimenInPixel.getMarginRectInPixels().top +
                         coachMarkDimenInPixel.getActionBarHeightPixels() +
@@ -450,9 +451,7 @@ public class PopUpCoachMarkPresenter {
     private boolean checkIfRightPossible(Point viewCenterPoint,
                                          CoachMarkPixelInfo coachMarkDimenInPixel) {
         int centerX = viewCenterPoint.x;
-        return (coachMarkDimenInPixel.getPopUpWidthInPixelsWithOffset() +
-                coachMarkDimenInPixel.getMarginRectInPixels().right +
-                coachMarkDimenInPixel.getMarginRectInPixels().left) <=
+        return (coachMarkDimenInPixel.getPopUpWidthInPixelsWithOffset()) <=
                 (coachMarkDimenInPixel.getScreenWidthInPixels() - centerX) &&
                 ((coachMarkDimenInPixel.getPopUpHeightInPixelsWithOffset() +
                         coachMarkDimenInPixel.getMarginRectInPixels().top +
