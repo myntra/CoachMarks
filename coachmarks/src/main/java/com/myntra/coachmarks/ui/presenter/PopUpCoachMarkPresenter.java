@@ -127,7 +127,6 @@ public class PopUpCoachMarkPresenter {
                 mCoachMarkBuilder.getAnchorTop().y,
                 mCoachMarkBuilder.getAnchorBottom().y,
                 mCoachMarkBuilder.getAnchorTop().x,
-                mCoachMarkBuilder.getAnchorBottom().x,
                 coachMarkDimenInPixel);
         detectAndCreateShimOutViews(mCoachMarkBuilder.getInfoForViewToMaskList());
         setImageParamsAndPosition(mCoachMarkBuilder.getAnchorTop(),
@@ -184,13 +183,11 @@ public class PopUpCoachMarkPresenter {
                                      int anchorTopY,
                                      int anchorBottomY,
                                      int anchorTopX,
-                                     int anchorBottomX,
                                      CoachMarkPixelInfo coachMarkDimenInPixel) {
         int notchPosition;
         int actualTopMargin;
         int actualLeftMargin;
         int centerY = (anchorTopY + anchorBottomY) / 2;
-        int centerX = (anchorTopX + anchorBottomX) / 2;
 
         Rect notchMarginRect;
         Rect coachMarkMarginRect;
