@@ -9,7 +9,7 @@ android {
         minSdkVersion versions.minSdk
         targetSdkVersion versions.targetSdk
         versionCode 1
-        versionName "0.0.10"
+        versionName "0.0.11"
     }
 
     buildTypes {
