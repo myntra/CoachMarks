@@ -38,7 +38,6 @@ public class PopUpCoachMarkPresenter {
 
     private static final double MAX_NOTCH_RANGE = .85;
     private static final double MIN_NOTCH_RANGE = 0.0;
-    private static final double DEFAULT_NOTCH_VALUE_WIDTH = .20;
 
     private static final int NO_MARGIN = 0;
 
@@ -60,8 +59,6 @@ public class PopUpCoachMarkPresenter {
     private IScreenInfoProvider mScreenInfoProvider;
     private IStringResourceProvider mStringResourceProvider;
     private IDimensionResourceProvider mDimensionResourceProvider;
-
-    private boolean mDefaultPopUpLocationFailed = false;
 
     public PopUpCoachMarkPresenter(final IStringResourceProvider stringResourceProvider,
                                    final IDimensionResourceProvider dimensionResourceProvider,
@@ -204,48 +201,28 @@ public class PopUpCoachMarkPresenter {
                         coachMarkDimenInPixel.getMarginRectInPixels().right +
                                 coachMarkDimenInPixel.getImageWidthInPixels(),
                         NO_MARGIN);
-
+                mPresentation.setPopUpViewTopLeft(coachMarkMarginRect,
+                        CoachMarkLayoutOrientation.HORIZONTAL);
                 notchPosition = getMarginTopForNotch(mCoachMarkBuilder.getNotchPosition(),
                         coachMarkDimenInPixel.getPopUpHeightInPixels(),
                         coachMarkDimenInPixel.getNotchDimenInPixels());
-
-                mPresentation.setPopUpViewTopLeft(coachMarkMarginRect,
-                        CoachMarkLayoutOrientation.HORIZONTAL);
-
                 notchMarginRect = new Rect(-coachMarkDimenInPixel.getMarginOffsetForNotchInPixels(),
                         notchPosition, NO_MARGIN, NO_MARGIN);
                 mPresentation.setNotchPositionIfPopUpTopLeft(notchMarginRect, ROTATION_90);
                 break;
             case PopUpPosition.TOP:
                 actualLeftMargin = getActualLeftMargin(anchorTopX, coachMarkDimenInPixel);
-
-                if(! mDefaultPopUpLocationFailed){
-                    coachMarkMarginRect = new Rect(actualLeftMargin -
-                            coachMarkDimenInPixel.getMarginRectInPixels().right,
-                            coachMarkDimenInPixel.getMarginRectInPixels().top,
-                            NO_MARGIN,
-                            coachMarkDimenInPixel.getMarginRectInPixels().bottom +
-                                    coachMarkDimenInPixel.getImageHeightInPixels());
-                    notchPosition = getMarginLeftForNotch(mCoachMarkBuilder.getNotchPosition(),
-                            coachMarkDimenInPixel.getPopUpWidthInPixels(),
-                            coachMarkDimenInPixel.getNotchDimenInPixels());
-                }else{
-
-                    coachMarkMarginRect = new Rect(actualLeftMargin -
-                            coachMarkDimenInPixel.getMarginRectInPixels().right,
-                            coachMarkDimenInPixel.getMarginRectInPixels().top,
-                            NO_MARGIN,
-                            coachMarkDimenInPixel.getImageHeightInPixels());
-
-                    notchPosition = getMarginLeftForNotch(DEFAULT_NOTCH_VALUE_WIDTH,
-                            coachMarkDimenInPixel.getPopUpWidthInPixels(),
-                            coachMarkDimenInPixel.getNotchDimenInPixels());
-
-                }
-
+                coachMarkMarginRect = new Rect(actualLeftMargin -
+                        coachMarkDimenInPixel.getMarginRectInPixels().right,
+                        coachMarkDimenInPixel.getMarginRectInPixels().top,
+                        NO_MARGIN,
+                        coachMarkDimenInPixel.getMarginRectInPixels().bottom +
+                                coachMarkDimenInPixel.getImageHeightInPixels());
                 mPresentation.setPopUpViewTopLeft(coachMarkMarginRect,
                         CoachMarkLayoutOrientation.VERTICAL);
-
+                notchPosition = getMarginLeftForNotch(mCoachMarkBuilder.getNotchPosition(),
+                        coachMarkDimenInPixel.getPopUpWidthInPixels(),
+                        coachMarkDimenInPixel.getNotchDimenInPixels());
                 notchMarginRect = new Rect(notchPosition +
                         coachMarkDimenInPixel.getMarginOffsetForNotchInPixels(),
                         -coachMarkDimenInPixel.getMarginOffsetForNotchInPixels(),
@@ -254,20 +231,16 @@ public class PopUpCoachMarkPresenter {
                 break;
             case PopUpPosition.RIGHT:
                 actualTopMargin = getActualTopMargin(centerY, coachMarkDimenInPixel);
-
                 coachMarkMarginRect = new Rect(coachMarkDimenInPixel.getMarginRectInPixels().left +
                         coachMarkDimenInPixel.getImageWidthInPixels(),
                         actualTopMargin - coachMarkDimenInPixel.getMarginRectInPixels().bottom,
                         coachMarkDimenInPixel.getMarginRectInPixels().right,
                         NO_MARGIN);
-
+                mPresentation.setPopUpViewBottomRight(coachMarkMarginRect,
+                        CoachMarkLayoutOrientation.HORIZONTAL);
                 notchPosition = getMarginTopForNotch(mCoachMarkBuilder.getNotchPosition(),
                         coachMarkDimenInPixel.getPopUpHeightInPixels(),
                         coachMarkDimenInPixel.getNotchDimenInPixels());
-
-                mPresentation.setPopUpViewBottomRight(coachMarkMarginRect,
-                        CoachMarkLayoutOrientation.HORIZONTAL);
-
                 notchMarginRect = new Rect(NO_MARGIN,
                         notchPosition - (int) (MULTIPLICATION_FACTOR_NOTCH_POSITION * coachMarkDimenInPixel.getMarginOffsetForNotchInPixels()),
                         NO_MARGIN,
@@ -281,36 +254,17 @@ public class PopUpCoachMarkPresenter {
                 break;
             case PopUpPosition.BOTTOM:
                 actualLeftMargin = getActualLeftMargin(anchorTopX, coachMarkDimenInPixel);
-                if(! mDefaultPopUpLocationFailed){
-
-                    coachMarkMarginRect = new Rect(actualLeftMargin -
-                            coachMarkDimenInPixel.getMarginRectInPixels().right,
-                            coachMarkDimenInPixel.getMarginRectInPixels().top +
-                                    coachMarkDimenInPixel.getImageHeightInPixels(),
-                            NO_MARGIN,
-                            coachMarkDimenInPixel.getMarginRectInPixels().bottom);
-
-                    notchPosition = getMarginLeftForNotch(mCoachMarkBuilder.getNotchPosition(),
-                            coachMarkDimenInPixel.getPopUpWidthInPixels(),
-                            coachMarkDimenInPixel.getNotchDimenInPixels());
-
-                }else{
-
-                    coachMarkMarginRect = new Rect(actualLeftMargin -
-                            coachMarkDimenInPixel.getMarginRectInPixels().right,
-                            coachMarkDimenInPixel.getImageHeightInPixels(),
-                            NO_MARGIN,
-                            coachMarkDimenInPixel.getMarginRectInPixels().bottom);
-
-                    notchPosition = getMarginLeftForNotch(DEFAULT_NOTCH_VALUE_WIDTH,
-                            coachMarkDimenInPixel.getPopUpWidthInPixels(),
-                            coachMarkDimenInPixel.getNotchDimenInPixels());
-
-                }
-
+                coachMarkMarginRect = new Rect(actualLeftMargin -
+                        coachMarkDimenInPixel.getMarginRectInPixels().right,
+                        coachMarkDimenInPixel.getMarginRectInPixels().top +
+                                coachMarkDimenInPixel.getImageHeightInPixels(),
+                        NO_MARGIN,
+                        coachMarkDimenInPixel.getMarginRectInPixels().bottom);
                 mPresentation.setPopUpViewBottomRight(coachMarkMarginRect,
                         CoachMarkLayoutOrientation.VERTICAL);
-
+                notchPosition = getMarginLeftForNotch(mCoachMarkBuilder.getNotchPosition(),
+                        coachMarkDimenInPixel.getPopUpWidthInPixels(),
+                        coachMarkDimenInPixel.getNotchDimenInPixels());
                 notchMarginRect = new Rect(notchPosition +
                         coachMarkDimenInPixel.getMarginOffsetForNotchInPixels(),
                         NO_MARGIN,
@@ -442,7 +396,6 @@ public class PopUpCoachMarkPresenter {
                 } else {
                     correctPosition = getCorrectPositionOfCoachMarkIfDefaultFails(viewCenterPoint,
                             coachMarkDimenInPixel);
-                    mDefaultPopUpLocationFailed = true;
                 }
                 break;
             case PopUpPosition.RIGHT:
@@ -451,7 +404,6 @@ public class PopUpCoachMarkPresenter {
                 } else {
                     correctPosition = getCorrectPositionOfCoachMarkIfDefaultFails(viewCenterPoint,
                             coachMarkDimenInPixel);
-                    mDefaultPopUpLocationFailed = true;
                 }
                 break;
 
@@ -461,7 +413,6 @@ public class PopUpCoachMarkPresenter {
                 } else {
                     correctPosition = getCorrectPositionOfCoachMarkIfDefaultFails(viewCenterPoint,
                             coachMarkDimenInPixel);
-                    mDefaultPopUpLocationFailed = true;
                 }
                 break;
 
@@ -471,14 +422,12 @@ public class PopUpCoachMarkPresenter {
                 } else {
                     correctPosition = getCorrectPositionOfCoachMarkIfDefaultFails(viewCenterPoint,
                             coachMarkDimenInPixel);
-                    mDefaultPopUpLocationFailed = true;
                 }
                 break;
             case PopUpPosition.NONE:
                 //if user selects no position by default check clockwise to find the correct position
                 correctPosition = getCorrectPositionOfCoachMarkIfDefaultFails(viewCenterPoint,
                         coachMarkDimenInPixel);
-
                 break;
         }
         return correctPosition;
