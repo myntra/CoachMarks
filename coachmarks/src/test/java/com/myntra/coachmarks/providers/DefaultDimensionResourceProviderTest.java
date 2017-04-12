@@ -42,7 +42,7 @@ public class DefaultDimensionResourceProviderTest {
         when(mMockedResources.getDimensionPixelSize(MOCKED_DIMEN_RES)).thenReturn(MOCKED_PIXEL_DIMEN);
         assert (mDimensionResourceProvider.getDimensionInPixel(MOCKED_DIMEN_RES) == MOCKED_PIXEL_DIMEN);
         verify(mMockContext, times(1)).getResources();
-        verify(mMockedResources, times(1)).getDimensionPixelSize(anyInt());
+        verify(mMockedResources, times(2)).getDimensionPixelSize(anyInt());
         verifyNoMoreInteractions(mMockContext);
         verifyNoMoreInteractions(mMockedResources);
     }
