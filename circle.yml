@@ -14,7 +14,7 @@ machine:
 
 dependencies:
     pre:
-      - echo y | android update sdk --no-ui --all --filter "tools,android-25,build-tools-25.0.2,platform-tools,extra-android-m2repository,extra-google-m2repository,extra-google-google_play_services"
+      - echo y | android update sdk --no-ui --all --filter "tools,android-25,build-tools-25.0.3,platform-tools,extra-android-m2repository,extra-google-m2repository,extra-google-google_play_services"
 
 #-PdisablePreDex is a must else gradle just dies due to memory limit
 test:
