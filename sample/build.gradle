@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.jakewharton.butterknife'
 
 android {
     compileSdkVersion versions.compileSdk
@@ -40,11 +41,12 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile project(path: ':coachmarks')
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    api project(':coachmarks')
 
-    compile libraries.supportAppCompat
+    implementation libraries.butterKnife
+    annotationProcessor libraries.butterKnifeCompiler
 
-    testCompile 'junit:junit:4.12'
-    compile 'com.android.support:support-annotations:25.2.0'
+    implementation libraries.supportAppCompat
+    testImplementation 'junit:junit:4.12'
 }

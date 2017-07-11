@@ -1,4 +1,4 @@
 <resources>
     <string name="app_name">CoachMarks</string>
-    <string name="coach_mark_pdp_collections">Tap &amp; hold to save \n item to other collections</string>
+    <string name="coach_mark_sample_message">This is a sample \n CoachMark Message</string>
 </resources>

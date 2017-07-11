@@ -38,39 +38,38 @@ android {
             exceptionFormat 'full'
         }
     }
-
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     //SUPPORT LIB
-    compile libraries.supportAppCompat
-    compile libraries.supportAnnotations
+    implementation libraries.supportAppCompat
+    implementation libraries.supportAnnotations
 
     //ZETA COMPONENTS
-    compile libraries.zetaUtils
+    implementation libraries.zetaUtils
 
     //PROGRAMMING
-    provided libraries.autoValue
+    compileOnly libraries.autoValue
     annotationProcessor libraries.autoValueParcel
-    compile libraries.butterKnife
+    implementation libraries.butterKnife
     annotationProcessor libraries.butterKnifeCompiler
 
     //ANNOTATION
-    compile libraries.jsr305
-    compile libraries.javaxAnnotationApi
+    implementation libraries.jsr305
+    implementation libraries.javaxAnnotationApi
 
-    compile(libraries.bundler) {
+    implementation(libraries.bundler) {
         // exclude this because bundler refers to an old version of the support lib
         exclude group: 'com.google.android'
     }
 
     //TESTING
-    testCompile libraries.junit
-    testCompile libraries.mockitoCore
-    testCompile libraries.powerMockitoApi
-    testCompile libraries.powerMockitoJunitRule
-    testCompile libraries.powerMockitoJunit
+    testImplementation libraries.junit
+    testImplementation libraries.mockitoCore
+    testImplementation libraries.powerMockitoApi
+    testImplementation libraries.powerMockitoJunitRule
+    testImplementation libraries.powerMockitoJunit
 
 }

@@ -2,9 +2,9 @@ ext.versions = [
         compileSdk                        : 25,
         minSdk                            : 16,
         targetSdk                         : 24,
-        buildTools                        : "25.0.2",
+        buildTools                        : "25.0.3",
 
-        supportLibVersion                 : "25.1.0",
+        supportLibVersion                 : "25.4.0",
         playServicesVersion               : "10.0.1",
         dexmakerVersion                   : "1.2",
         multiDexVersion                   : "1.0.1",
@@ -63,7 +63,7 @@ ext.versions = [
         espressoVersion                   : '2.2.1',
 
         aptPluginVersion                  : "1.8",
-        gradlePluginVersion               : "2.3.0",
+        gradlePluginVersion               : "3.0.0-alpha6",
         retroLambdaPluginVersion          : "3.2.5",
         retrolombokPluginVersion          : "0.2.3.a2",
         frodoPluginVersion                : "0.8.3",
