@@ -373,6 +373,10 @@ public class PopUpCoachMarkPresenter {
                 break;
         }
 
+        if(popUpPosition == PopUpPosition.NONE){
+            return;
+        }
+
         switch (dismissButtonPosition) {
             case DialogDismissButtonPosition.LEFT:
                 mPresentation.setDismissButtonPositionLeft();
