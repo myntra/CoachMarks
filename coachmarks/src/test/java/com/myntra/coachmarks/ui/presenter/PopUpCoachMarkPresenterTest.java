@@ -4,6 +4,7 @@ import android.graphics.Point;
 import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.support.annotation.ColorRes;
+import android.support.annotation.DimenRes;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
 import android.util.Log;
@@ -74,6 +75,16 @@ public class PopUpCoachMarkPresenterTest {
     @Mock
     @DrawableRes
     int mockedDrawableRes;
+
+    @Mock
+    CoachMarkLayoutMargin mCoachMarkLayoutMargin;
+
+    @Mock
+    ImageLayoutInformation mImageLayoutInformation;
+
+    @Mock
+    @DimenRes
+    int mockedDimenRes;
 
     private PopUpCoachMarkPresenter mPopUpCoachMarkPresenter;
     private CoachMarkPixelInfo mCoachMarkPixelInfo;
@@ -257,8 +268,10 @@ public class PopUpCoachMarkPresenterTest {
 
     @Test
     public void getMarginLeftForNotchTest() {
-        assertEquals(140, mPopUpCoachMarkPresenter.getMarginLeftForNotch(.75, 190, 50));
-        assertEquals(25, mPopUpCoachMarkPresenter.getMarginLeftForNotch(.25, 100, 25));
+        assertEquals(140, mPopUpCoachMarkPresenter.getMarginLeftForNotch
+                (.75, 190, 50));
+        assertEquals(25, mPopUpCoachMarkPresenter.getMarginLeftForNotch
+                (.25, 100, 25));
     }
 
     @Test
@@ -298,7 +311,8 @@ public class PopUpCoachMarkPresenterTest {
         mPopUpCoachMarkPresenter.setImageParamsAndPosition(anchorTop, anchorBotom,
                 30, 30, mockedColorRes, mockedDrawableRes);
 
-        Mockito.verify(mPopUpCoachMarkPresentation, Mockito.times(1)).setImageInformation(Matchers.anyDouble(),
+        Mockito.verify(mPopUpCoachMarkPresentation, Mockito.times(1))
+                .setImageInformation(Matchers.anyDouble(),
                 Matchers.anyDouble(),Matchers.anyInt(), Matchers.anyInt(),Matchers.anyInt(), Matchers.anyInt());
         Mockito.verifyNoMoreInteractions(mPopUpCoachMarkPresentation);
     }
@@ -309,7 +323,8 @@ public class PopUpCoachMarkPresenterTest {
 
         Mockito.verify(mPopUpCoachMarkPresentation, Mockito.times(1)).
                 setPopUpViewPositionWithRespectToImage(CoachMarkAlignPosition.ALIGN_RIGHT);
-        Mockito.verify(mPopUpCoachMarkPresentation, Mockito.times(1)).setDismissButtonPositionLeft();
+        Mockito.verify(mPopUpCoachMarkPresentation, Mockito.times(1))
+                .setDismissButtonPositionLeft();
         Mockito.verifyNoMoreInteractions(mPopUpCoachMarkPresentation);
     }
 
@@ -319,7 +334,8 @@ public class PopUpCoachMarkPresenterTest {
 
         Mockito.verify(mPopUpCoachMarkPresentation, Mockito.times(1)).
                 setPopUpViewPositionWithRespectToImage(CoachMarkAlignPosition.ALIGN_LEFT);
-        Mockito.verify(mPopUpCoachMarkPresentation, Mockito.times(1)).setDismissButtonPositionLeft();
+        Mockito.verify(mPopUpCoachMarkPresentation, Mockito.times(1))
+                .setDismissButtonPositionLeft();
         Mockito.verifyNoMoreInteractions(mPopUpCoachMarkPresentation);
     }
 
@@ -329,7 +345,8 @@ public class PopUpCoachMarkPresenterTest {
 
         Mockito.verify(mPopUpCoachMarkPresentation, Mockito.times(1)).
                 setPopUpViewPositionWithRespectToImage(CoachMarkAlignPosition.ALIGN_BOTTOM);
-        Mockito.verify(mPopUpCoachMarkPresentation, Mockito.times(1)).setDismissButtonPositionLeft();
+        Mockito.verify(mPopUpCoachMarkPresentation, Mockito.times(1))
+                .setDismissButtonPositionLeft();
         Mockito.verifyNoMoreInteractions(mPopUpCoachMarkPresentation);
     }
 
@@ -339,7 +356,8 @@ public class PopUpCoachMarkPresenterTest {
 
         Mockito.verify(mPopUpCoachMarkPresentation, Mockito.times(1)).
                 setPopUpViewPositionWithRespectToImage(CoachMarkAlignPosition.ALIGN_TOP);
-        Mockito.verify(mPopUpCoachMarkPresentation, Mockito.times(1)).setDismissButtonPositionLeft();
+        Mockito.verify(mPopUpCoachMarkPresentation, Mockito.times(1))
+                .setDismissButtonPositionLeft();
         Mockito.verifyNoMoreInteractions(mPopUpCoachMarkPresentation);
     }
 
@@ -352,7 +370,8 @@ public class PopUpCoachMarkPresenterTest {
 
         Mockito.verify(mPopUpCoachMarkPresentation, Mockito.times(0)).
                 setPopUpViewPositionWithRespectToImage(CoachMarkAlignPosition.ALIGN_TOP);
-        Mockito.verify(mPopUpCoachMarkPresentation, Mockito.times(0)).setDismissButtonPositionLeft();
+        Mockito.verify(mPopUpCoachMarkPresentation, Mockito.times(0))
+                .setDismissButtonPositionLeft();
         Mockito.verifyNoMoreInteractions(mPopUpCoachMarkPresentation);
 
     }
@@ -363,7 +382,8 @@ public class PopUpCoachMarkPresenterTest {
 
         Mockito.verify(mPopUpCoachMarkPresentation, Mockito.times(1)).
                 setPopUpViewPositionWithRespectToImage(CoachMarkAlignPosition.ALIGN_BOTTOM);
-        Mockito.verify(mPopUpCoachMarkPresentation, Mockito.times(1)).setDismissButtonPositionRight();
+        Mockito.verify(mPopUpCoachMarkPresentation, Mockito.times(1))
+                .setDismissButtonPositionRight();
         Mockito.verifyNoMoreInteractions(mPopUpCoachMarkPresentation);
     }
 
@@ -490,6 +510,252 @@ public class PopUpCoachMarkPresenterTest {
     public void getActualLeftMarginTest(){
         assertEquals(400, mPopUpCoachMarkPresenter.getActualTopMargin(400, mCoachMarkPixelInfo));
         assertEquals(800, mPopUpCoachMarkPresenter.getActualTopMargin(800, mCoachMarkPixelInfo));
+    }
+
+    @Test
+    public void getDisplayPositionLeftDefaultPassTest(){
+        MockedPoint point = new MockedPoint(600, 300);
+        assertEquals(PopUpPosition.LEFT,mPopUpCoachMarkPresenter.getDisplayPosition(point,
+                PopUpPosition.LEFT, mCoachMarkPixelInfo));
+    }
+
+    @Test
+    public void getDisplayPositionLeftDefaultFailTest(){
+        MockedPoint point = new MockedPoint(0, 300);
+        assertEquals(PopUpPosition.RIGHT,mPopUpCoachMarkPresenter.getDisplayPosition(point,
+                PopUpPosition.LEFT, mCoachMarkPixelInfo));
+    }
+
+    @Test
+    public void getDisplayPositionRightDefaultPassTest(){
+        MockedPoint point = new MockedPoint(400, 300);
+        assertEquals(PopUpPosition.RIGHT,mPopUpCoachMarkPresenter.getDisplayPosition(point,
+                PopUpPosition.RIGHT, mCoachMarkPixelInfo));
+    }
+
+    @Test
+    public void getDisplayPositionRightDefaultFailTest(){
+        MockedPoint point = new MockedPoint(760, 300);
+        assertEquals(PopUpPosition.BOTTOM,mPopUpCoachMarkPresenter.getDisplayPosition(point,
+                PopUpPosition.RIGHT, mCoachMarkPixelInfo));
+    }
+
+    @Test
+    public void getDisplayPositionTopDefaultPassTest(){
+        MockedPoint point = new MockedPoint(400, 300);
+        assertEquals(PopUpPosition.TOP,mPopUpCoachMarkPresenter.getDisplayPosition(point,
+                PopUpPosition.TOP, mCoachMarkPixelInfo));
+    }
+
+    @Test
+    public void getDisplayPositionTopDefaultFailTest(){
+        MockedPoint point = new MockedPoint(760, 10);
+        assertEquals(PopUpPosition.BOTTOM,mPopUpCoachMarkPresenter.getDisplayPosition(point,
+                PopUpPosition.TOP, mCoachMarkPixelInfo));
+    }
+
+
+    @Test
+    public void getDisplayPositionBottomDefaultPassTest(){
+        MockedPoint point = new MockedPoint(400, 300);
+        assertEquals(PopUpPosition.BOTTOM,mPopUpCoachMarkPresenter.getDisplayPosition(point,
+                PopUpPosition.BOTTOM, mCoachMarkPixelInfo));
+    }
+
+    @Test
+    public void getDisplayPositionBottomDefaultFailTest(){
+        MockedPoint point = new MockedPoint(760, 1000);
+        assertEquals(PopUpPosition.LEFT,mPopUpCoachMarkPresenter.getDisplayPosition(point,
+                PopUpPosition.BOTTOM, mCoachMarkPixelInfo));
+    }
+
+    @Test
+    public void getDisplayPositionNoneDefaultPositionTest(){
+        MockedPoint point = new MockedPoint(760, 1000);
+        assertEquals(PopUpPosition.LEFT,mPopUpCoachMarkPresenter.getDisplayPosition(point,
+                PopUpPosition.NONE, mCoachMarkPixelInfo));
+    }
+
+
+    @Test
+    public void createCoachMarkPixelInfoTest(){
+
+        Mockito.when(mCoachMarkBuilder.getCoachMarkLayoutMargin()).thenReturn(mCoachMarkLayoutMargin);
+        Mockito.when(mCoachMarkBuilder.getImageLayoutInformation()).thenReturn(mImageLayoutInformation);
+
+        Mockito.when(mCoachMarkLayoutMargin.getBottomMarginForCoachMark()).thenReturn(mockedDimenRes);
+        Mockito.when(mCoachMarkLayoutMargin.getLeftMarginForCoachMark()).thenReturn(mockedDimenRes);
+        Mockito.when(mCoachMarkLayoutMargin.getRightMarginForCoachMark()).thenReturn(mockedDimenRes);
+        Mockito.when(mCoachMarkLayoutMargin.getTopMarginForCoachMark()).thenReturn(mockedDimenRes);
+
+        Mockito.when(mCoachMarkBuilder.getActionBarHeight()).thenReturn(mockedDimenRes);
+        Mockito.when(mCoachMarkBuilder.getFooterHeight()).thenReturn(mockedDimenRes);
+
+
+        Mockito.when(mImageLayoutInformation.getImageHeight()).thenReturn(mockedDimenRes);
+        Mockito.when(mImageLayoutInformation.getImageWidth()).thenReturn(mockedDimenRes);
+
+        Mockito.when(mDimensionResourceProvider.getDimensionInPixel(Matchers.anyInt())).thenReturn(10);
+
+        CoachMarkPixelInfo coachMarkPixelInfo = mPopUpCoachMarkPresenter.createCoachMarkPixelInfo();
+
+        assertEquals(10, coachMarkPixelInfo.getImageHeightInPixels());
+        assertEquals(10, coachMarkPixelInfo.getImageWidthInPixels());
+        assertEquals(30, coachMarkPixelInfo.getPopUpHeightInPixelsWithOffset());
+        assertEquals(30, coachMarkPixelInfo.getPopUpWidthInPixelsWithOffset());
+        assertEquals(10, coachMarkPixelInfo.getWidthHeightOffsetForCoachMarkPopUp());
+        assertEquals(10, coachMarkPixelInfo.getNotchDimenInPixels());
+        assertEquals(10, coachMarkPixelInfo.getActionBarHeightPixels());
+        assertEquals(10, coachMarkPixelInfo.getFooterHeightPixels());
+
+    }
+
+    @Test
+    public void findCoachMarkTextPopUpDisplayPositionTest(){
+        MockedPoint pointTop = new MockedPoint(400, 0);
+        MockedPoint pointBottom = new MockedPoint(600,600);
+
+        assertEquals(PopUpPosition.RIGHT, mPopUpCoachMarkPresenter.
+                findCoachMarkTextPopUpDisplayPosition(pointTop, pointBottom, PopUpPosition.RIGHT,
+                        mCoachMarkPixelInfo));
+    }
+
+    @Test
+    public void setNotchDisplayEdgePopUpPositionLeftTest(){
+        mPopUpCoachMarkPresenter.setNotchDisplayEdge(PopUpPosition.LEFT, 600,
+                0, 600, mCoachMarkPixelInfo);
+
+        Mockito.verify(mPopUpCoachMarkPresentation,
+                Mockito.times(1)).setPopUpViewTopLeft(
+                        (Rect)Matchers.anyObject(), Matchers.anyInt());
+        Mockito.verify(mPopUpCoachMarkPresentation,
+                Mockito.times(1)).setNotchPositionIfPopUpTopLeft((Rect)Matchers.anyObject(),
+                Matchers.anyInt());
+        Mockito.verifyNoMoreInteractions(mPopUpCoachMarkPresentation);
+    }
+
+    @Test
+    public void setNotchDisplayEdgePopUpPositionTopTest(){
+        mPopUpCoachMarkPresenter.setNotchDisplayEdge(PopUpPosition.TOP, 600,
+                0, 600, mCoachMarkPixelInfo);
+
+        Mockito.verify(mPopUpCoachMarkPresentation,
+                Mockito.times(1)).setPopUpViewTopLeft(
+                (Rect)Matchers.anyObject(), Matchers.anyInt());
+        Mockito.verify(mPopUpCoachMarkPresentation,
+                Mockito.times(1)).setNotchPositionIfPopUpTopLeft((Rect)Matchers.anyObject(),
+                Matchers.anyInt());
+        Mockito.verifyNoMoreInteractions(mPopUpCoachMarkPresentation);
+    }
+
+    @Test
+    public void setNotchDisplayEdgePopUpPositionBottomTest(){
+        mPopUpCoachMarkPresenter.setNotchDisplayEdge(PopUpPosition.BOTTOM, 600,
+                0, 600, mCoachMarkPixelInfo);
+
+        Mockito.verify(mPopUpCoachMarkPresentation,
+                Mockito.times(1)).setPopUpViewBottomRight(
+                (Rect)Matchers.anyObject(), Matchers.anyInt());
+        Mockito.verify(mPopUpCoachMarkPresentation,
+                Mockito.times(1)).
+                setNotchPositionIfPopUpBottomRight((Rect)Matchers.anyObject(),
+                Matchers.anyInt());
+        Mockito.verify(mPopUpCoachMarkPresentation,
+                Mockito.times(1)).uiAdjustmentForNotchIfPopUpBottom
+                ((Rect)Matchers.anyObject());
+        Mockito.verifyNoMoreInteractions(mPopUpCoachMarkPresentation);
+    }
+
+    @Test
+    public void setNotchDisplayEdgePopUpPositionRightTest(){
+        mPopUpCoachMarkPresenter.setNotchDisplayEdge(PopUpPosition.RIGHT, 600,
+                0, 600, mCoachMarkPixelInfo);
+
+        Mockito.verify(mPopUpCoachMarkPresentation,
+                Mockito.times(1)).setPopUpViewBottomRight(
+                (Rect)Matchers.anyObject(), Matchers.anyInt());
+        Mockito.verify(mPopUpCoachMarkPresentation,
+                Mockito.times(1)).setNotchPositionIfPopUpBottomRight((Rect)Matchers.anyObject(),
+                Matchers.anyInt());
+        Mockito.verify(mPopUpCoachMarkPresentation,
+                Mockito.times(1)).uiAdjustmentForNotchIfPopUpRight
+                ((Rect)Matchers.anyObject());
+        Mockito.verifyNoMoreInteractions(mPopUpCoachMarkPresentation);
+    }
+
+
+    @Test
+    public void onViewCreatedTest(){
+        PopUpCoachMarkPresenter spiedPopUpCoachMarkPresenter = Mockito.spy(new
+                PopUpCoachMarkPresenter(mStringResourceProvider,
+                mDimensionResourceProvider, mTypeFaceProvider, mScreenInfoProvider));
+
+        MockedPoint pointTop = new MockedPoint(400, 0);
+        MockedPoint pointBottom = new MockedPoint(600,600);
+
+        CoachMarkBuilder coachMarkBuilder = CoachMarkBuilder.create(pointTop, pointBottom,
+                mockedStringRes).build();
+        spiedPopUpCoachMarkPresenter.onCreate(coachMarkBuilder);
+        spiedPopUpCoachMarkPresenter.onCreateView(mPopUpCoachMarkPresentation);
+
+        Mockito.doReturn(mCoachMarkPixelInfo).when(spiedPopUpCoachMarkPresenter)
+                .createCoachMarkPixelInfo();
+
+        spiedPopUpCoachMarkPresenter.onViewCreated();
+
+        Mockito.verify(spiedPopUpCoachMarkPresenter, Mockito.times(1))
+                .displayCoachMark();
+
+    }
+
+    @Test
+    public void displayCoachMarkTest(){
+        PopUpCoachMarkPresenter spiedPopUpCoachMarkPresenter = Mockito.spy(new
+                PopUpCoachMarkPresenter(mStringResourceProvider,
+                mDimensionResourceProvider, mTypeFaceProvider, mScreenInfoProvider));
+
+        MockedPoint pointTop = new MockedPoint(400, 0);
+        MockedPoint pointBottom = new MockedPoint(600,600);
+
+        CoachMarkBuilder coachMarkBuilder = CoachMarkBuilder.create(pointTop, pointBottom,
+                mockedStringRes).build();
+        spiedPopUpCoachMarkPresenter.onCreate(coachMarkBuilder);
+        spiedPopUpCoachMarkPresenter.onCreateView(mPopUpCoachMarkPresentation);
+
+        Mockito.doReturn(mCoachMarkPixelInfo).when(spiedPopUpCoachMarkPresenter)
+                .createCoachMarkPixelInfo();
+
+        spiedPopUpCoachMarkPresenter.displayCoachMark();
+
+        Mockito.verify(spiedPopUpCoachMarkPresenter, Mockito.times(1))
+                .createCoachMarkPixelInfo();
+        Mockito.verify(spiedPopUpCoachMarkPresenter, Mockito.times(1))
+                .findCoachMarkTextPopUpDisplayPosition((Point) Matchers.anyObject(),
+                        (Point) Matchers.anyObject(), Matchers.anyInt(),
+                        (CoachMarkPixelInfo) Matchers.anyObject() );
+
+        Mockito.verify(spiedPopUpCoachMarkPresenter, Mockito.times(1))
+                .setTypeFaceForDismissButton(Matchers.anyString());
+        Mockito.verify(spiedPopUpCoachMarkPresenter, Mockito.times(1))
+                .setTypeFaceForCoachMarkText(Matchers.anyString());
+
+        Mockito.verify(spiedPopUpCoachMarkPresenter, Mockito.times(1))
+                .setGravityForCoachMarkText(Matchers.anyInt());
+        Mockito.verify(spiedPopUpCoachMarkPresenter, Mockito.times(1))
+                .setMessageForCoachMarkText(Matchers.anyInt());
+
+        Mockito.verify(spiedPopUpCoachMarkPresenter, Mockito.times(1))
+                .setNotchDisplayEdge(Matchers.anyInt(), Matchers.anyInt(), Matchers.anyInt(),
+                        Matchers.anyInt(), (CoachMarkPixelInfo) Matchers.anyObject());
+        Mockito.verify(spiedPopUpCoachMarkPresenter, Mockito.times(1))
+                .detectAndCreateShimOutViews(Matchers.anyList());
+        Mockito.verify(spiedPopUpCoachMarkPresenter, Mockito.times(1))
+                .setImageParamsAndPosition((Point)Matchers.anyObject(),(Point)Matchers.anyObject(), Matchers.anyInt(),
+                        Matchers.anyInt(),  Matchers.anyInt(),  Matchers.anyInt());
+        Mockito.verify(spiedPopUpCoachMarkPresenter, Mockito.times(1))
+                .showCoachMark(Matchers.anyInt(),  Matchers.anyInt());
+        Mockito.verify(mPopUpCoachMarkPresentation, Mockito.times(1))
+                .startAnimationOnImage(Matchers.anyInt());
     }
 
     //Fake class to mock Point behaviour for junit tests
