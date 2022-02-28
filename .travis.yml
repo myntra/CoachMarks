@@ -56,5 +56,8 @@ notifications:
   email: true
   slack: myntra:3GgFvhHOLMEe3WIVzuoFUW8Y
 
-cache: false
+cache:
+   directories:
+   - $HOME/.gradle/caches/
+   - $HOME/.gradle/wrapper/
 sudo: required
